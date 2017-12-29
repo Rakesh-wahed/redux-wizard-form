@@ -1,15 +1,23 @@
 {
+  "ignore": [
+    "node_modules/**"
+  ],
   "presets": [
-    "es2015-rollup",
+    ["es2015", { "modules": false }],
     "react",
     "flow"
   ],
   "plugins": [
     "transform-class-properties",
-    "transform-object-rest-spread",
-    "external-helpers"
+    "transform-object-rest-spread"
   ],
   "env": {
+    "development": {
+      "plugins": ["external-helpers"]
+    },
+    "production": {
+      "plugins": ["external-helpers"]
+    },
     "test": {
       "plugins": ["transform-es2015-modules-commonjs"]
     }
