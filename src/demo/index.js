@@ -3,27 +3,32 @@ import * as ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { Provider } from 'react-redux';
-import { reduxWizardForm } from '../containers';
+import { WizardForm, WizardStep, wizardReducer } from '../index';
 import { FormStep1, FormStep2, FormStep3 } from './fixtures';
-import { WizardFormWrapper, PageWrapper } from './styles';
 
 const reducers = {
-  form: formReducer
+  form: formReducer,
+  wizard: wizardReducer
 };
 const reducer = combineReducers(reducers);
 const store = createStore(reducer);
-const DemoWizardForm = reduxWizardForm({ form: 'demo' })([FormStep1, FormStep2, FormStep3]);
 
 document.addEventListener('DOMContentLoaded', () => {
+  function handleWizardComplete(data) {
+    console.log(data);
+  }
+
   ReactDOM.render(
     <Provider store={store}>
-      <PageWrapper>
+      <div>
         <h1> Redux Form Wizard</h1>
 
-        <WizardFormWrapper>
-          <DemoWizardForm onWizardComplete={data => console.log(data)} />
-        </WizardFormWrapper>
-      </PageWrapper>
+        <WizardForm reduxFormOptions={{ form: 'wizard' }} onWizardComplete={handleWizardComplete}>
+          <WizardStep component={FormStep1} />
+          <WizardStep component={FormStep2} />
+          <WizardStep component={FormStep3} />
+        </WizardForm>
+      </div>
     </Provider>,
     document.getElementById('app')
   );

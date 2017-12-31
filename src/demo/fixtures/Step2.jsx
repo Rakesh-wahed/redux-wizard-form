@@ -2,11 +2,8 @@ import * as React from 'react';
 import { Field } from 'redux-form';
 import { FieldsetWrapper } from '../styles';
 
-export const FormStep2 = props => (
+export const FormStep2 = () => (
   <FieldsetWrapper>
-    <button type="button" onClick={props.onPreviousStep}>
-      Previous Step
-    </button>
     <Field name="phone" component="input" type="tel" placeholder="Phone" />
     <Field name="age" component="input" type="number" placeholder="Age" />
     <Field name="gender" component="select">

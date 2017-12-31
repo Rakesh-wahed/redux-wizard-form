@@ -24706,7 +24706,7 @@ var createGetFormSyncErrors = function createGetFormSyncErrors(_ref) {
   };
 };
 
-var getFormSyncErrors = createGetFormSyncErrors(structure);
+createGetFormSyncErrors(structure);
 
 var createGetFormMeta = function createGetFormMeta(_ref) {
   var getIn = _ref.getIn,
@@ -24721,7 +24721,7 @@ var createGetFormMeta = function createGetFormMeta(_ref) {
   };
 };
 
-var getFormMeta = createGetFormMeta(structure);
+createGetFormMeta(structure);
 
 var createGetFormAsyncErrors = function createGetFormAsyncErrors(_ref) {
   var getIn = _ref.getIn;
@@ -27013,6 +27013,37 @@ var createValues$1 = function createValues(_ref) {
 
 createValues$1(structure);
 
+var types = {
+  WIZARD_NEXT_STEP: 'WIZARD_NEXT_STEP',
+  WIZARD_PREVIOUS_STEP: 'WIZARD_PREVIOUS_STEP',
+  WIZARD_GO_TO_STEP: 'WIZARD_GO_TO_STEP',
+  WIZARD_FORM_SUBMIT: 'WIZARD_FORM_SUBMIT',
+  WIZARD_LOAD: 'WIZARD_LOAD'
+};
+
+var wizardLoad = function wizardLoad(stepsSize, formOptions) {
+  return {
+    type: types.WIZARD_LOAD,
+    payload: {
+      stepsSize: stepsSize,
+      formOptions: formOptions
+    }
+  };
+};
+
+
+
+
+
+
+
+var formSubmit = function formSubmit(data) {
+  return {
+    type: types.WIZARD_FORM_SUBMIT,
+    payload: data
+  };
+};
+
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -27083,17 +27114,7 @@ var inherits = function (subClass, superClass) {
 
 
 
-var objectWithoutProperties = function (obj, keys) {
-  var target = {};
 
-  for (var i in obj) {
-    if (keys.indexOf(i) >= 0) continue;
-    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-    target[i] = obj[i];
-  }
-
-  return target;
-};
 
 var possibleConstructorReturn = function (self, call) {
   if (!self) {
@@ -27119,1420 +27140,57 @@ var taggedTemplateLiteral = function (strings, raw) {
   }));
 };
 
-
-
-
-
-
-
-
-
-var toConsumableArray = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  } else {
-    return Array.from(arr);
-  }
-};
-
-var WizardStep = function WizardStep(_ref) {
-  var Step = _ref.Step,
-      props = objectWithoutProperties(_ref, ['Step']);
-  return react.createElement(
-    'form',
-    { onSubmit: props.handleSubmit },
-    react.createElement(Step, props)
-  );
-};
-
-WizardStep.propTypes = {
-  Step: propTypes.func.isRequired,
-  handleSubmit: propTypes.func.isRequired
-};
-
-var hasClass_1 = createCommonjsModule(function (module, exports) {
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = hasClass;
-function hasClass(element, className) {
-  if (element.classList) return !!className && element.classList.contains(className);else return (" " + element.className + " ").indexOf(" " + className + " ") !== -1;
-}
-module.exports = exports["default"];
-});
-
-unwrapExports(hasClass_1);
-
-var addClass_1 = createCommonjsModule(function (module, exports) {
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = addClass;
-
-
-
-var _hasClass2 = _interopRequireDefault(hasClass_1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function addClass(element, className) {
-  if (element.classList) element.classList.add(className);else if (!(0, _hasClass2.default)(element)) element.className = element.className + ' ' + className;
-}
-module.exports = exports['default'];
-});
-
-unwrapExports(addClass_1);
-
-var removeClass = function removeClass(element, className) {
-  if (element.classList) element.classList.remove(className);else element.className = element.className.replace(new RegExp('(^|\\s)' + className + '(?:\\s|$)', 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
-};
-
-var PropTypes$1 = createCommonjsModule(function (module, exports) {
-exports.__esModule = true;
-exports.classNamesShape = exports.timeoutsShape = undefined;
-exports.transitionTimeout = transitionTimeout;
-
-
-
-var _propTypes2 = _interopRequireDefault(propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function transitionTimeout(transitionType) {
-  var timeoutPropName = 'transition' + transitionType + 'Timeout';
-  var enabledPropName = 'transition' + transitionType;
-
-  return function (props) {
-    // If the transition is enabled
-    if (props[enabledPropName]) {
-      // If no timeout duration is provided
-      if (props[timeoutPropName] == null) {
-        return new Error(timeoutPropName + ' wasn\'t supplied to CSSTransitionGroup: ' + 'this can cause unreliable animations and won\'t be supported in ' + 'a future version of React. See ' + 'https://fb.me/react-animation-transition-group-timeout for more ' + 'information.');
-
-        // If the duration isn't a number
-      } else if (typeof props[timeoutPropName] !== 'number') {
-        return new Error(timeoutPropName + ' must be a number (in milliseconds)');
-      }
-    }
-
-    return null;
-  };
-}
-
-var timeoutsShape = exports.timeoutsShape = _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.shape({
-  enter: _propTypes2.default.number,
-  exit: _propTypes2.default.number
-}).isRequired]);
-
-var classNamesShape = exports.classNamesShape = _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.shape({
-  enter: _propTypes2.default.string,
-  exit: _propTypes2.default.string,
-  active: _propTypes2.default.string
-}), _propTypes2.default.shape({
-  enter: _propTypes2.default.string,
-  enterActive: _propTypes2.default.string,
-  exit: _propTypes2.default.string,
-  exitActive: _propTypes2.default.string
-})]);
-});
-
-unwrapExports(PropTypes$1);
-var PropTypes_1 = PropTypes$1.classNamesShape;
-var PropTypes_2 = PropTypes$1.timeoutsShape;
-var PropTypes_3 = PropTypes$1.transitionTimeout;
-
-var Transition_1 = createCommonjsModule(function (module, exports) {
-exports.__esModule = true;
-exports.EXITING = exports.ENTERED = exports.ENTERING = exports.EXITED = exports.UNMOUNTED = undefined;
-
-
-
-var PropTypes = _interopRequireWildcard(propTypes);
-
-
-
-var _react2 = _interopRequireDefault(react);
-
-
-
-var _reactDom2 = _interopRequireDefault(reactDom);
-
-
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var UNMOUNTED = exports.UNMOUNTED = 'unmounted';
-var EXITED = exports.EXITED = 'exited';
-var ENTERING = exports.ENTERING = 'entering';
-var ENTERED = exports.ENTERED = 'entered';
-var EXITING = exports.EXITING = 'exiting';
-
-/**
- * The Transition component lets you describe a transition from one component
- * state to another _over time_ with a simple declarative API. Most commonly
- * it's used to animate the mounting and unmounting of a component, but can also
- * be used to describe in-place transition states as well.
- *
- * By default the `Transition` component does not alter the behavior of the
- * component it renders, it only tracks "enter" and "exit" states for the components.
- * It's up to you to give meaning and effect to those states. For example we can
- * add styles to a component when it enters or exits:
- *
- * ```jsx
- * import Transition from 'react-transition-group/Transition';
- *
- * const duration = 300;
- *
- * const defaultStyle = {
- *   transition: `opacity ${duration}ms ease-in-out`,
- *   opacity: 0,
- * }
- *
- * const transitionStyles = {
- *   entering: { opacity: 0 },
- *   entered:  { opacity: 1 },
- * };
- *
- * const Fade = ({ in: inProp }) => (
- *   <Transition in={inProp} timeout={duration}>
- *     {(state) => (
- *       <div style={{
- *         ...defaultStyle,
- *         ...transitionStyles[state]
- *       }}>
- *         I'm A fade Transition!
- *       </div>
- *     )}
- *   </Transition>
- * );
- * ```
- *
- * As noted the `Transition` component doesn't _do_ anything by itself to its child component.
- * What it does do is track transition states over time so you can update the
- * component (such as by adding styles or classes) when it changes states.
- *
- * There are 4 main states a Transition can be in:
- *  - `ENTERING`
- *  - `ENTERED`
- *  - `EXITING`
- *  - `EXITED`
- *
- * Transition state is toggled via the `in` prop. When `true` the component begins the
- * "Enter" stage. During this stage, the component will shift from its current transition state,
- * to `'entering'` for the duration of the transition and then to the `'entered'` stage once
- * it's complete. Let's take the following example:
- *
- * ```jsx
- * state= { in: false };
- *
- * toggleEnterState = () => {
- *   this.setState({ in: true });
- * }
- *
- * render() {
- *   return (
- *     <div>
- *       <Transition in={this.state.in} timeout={500} />
- *       <button onClick={this.toggleEnterState}>Click to Enter</button>
- *     </div>
- *   );
- * }
- * ```
- *
- * When the button is clicked the component will shift to the `'entering'` state and
- * stay there for 500ms (the value of `timeout`) when finally switches to `'entered'`.
- *
- * When `in` is `false` the same thing happens except the state moves from `'exiting'` to `'exited'`.
- */
-
-var Transition = function (_React$Component) {
-  _inherits(Transition, _React$Component);
-
-  function Transition(props, context) {
-    _classCallCheck(this, Transition);
-
-    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
-
-    var parentGroup = context.transitionGroup;
-    // In the context of a TransitionGroup all enters are really appears
-    var appear = parentGroup && !parentGroup.isMounting ? props.enter : props.appear;
-
-    var initialStatus = void 0;
-    _this.nextStatus = null;
-
-    if (props.in) {
-      if (appear) {
-        initialStatus = EXITED;
-        _this.nextStatus = ENTERING;
-      } else {
-        initialStatus = ENTERED;
-      }
-    } else {
-      if (props.unmountOnExit || props.mountOnEnter) {
-        initialStatus = UNMOUNTED;
-      } else {
-        initialStatus = EXITED;
-      }
-    }
-
-    _this.state = { status: initialStatus };
-
-    _this.nextCallback = null;
-    return _this;
-  }
-
-  Transition.prototype.getChildContext = function getChildContext() {
-    return { transitionGroup: null }; // allows for nested Transitions
-  };
-
-  Transition.prototype.componentDidMount = function componentDidMount() {
-    this.updateStatus(true);
-  };
-
-  Transition.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    var _ref = this.pendingState || this.state,
-        status = _ref.status;
-
-    if (nextProps.in) {
-      if (status === UNMOUNTED) {
-        this.setState({ status: EXITED });
-      }
-      if (status !== ENTERING && status !== ENTERED) {
-        this.nextStatus = ENTERING;
-      }
-    } else {
-      if (status === ENTERING || status === ENTERED) {
-        this.nextStatus = EXITING;
-      }
-    }
-  };
-
-  Transition.prototype.componentDidUpdate = function componentDidUpdate() {
-    this.updateStatus();
-  };
-
-  Transition.prototype.componentWillUnmount = function componentWillUnmount() {
-    this.cancelNextCallback();
-  };
-
-  Transition.prototype.getTimeouts = function getTimeouts() {
-    var timeout = this.props.timeout;
-
-    var exit = void 0,
-        enter = void 0,
-        appear = void 0;
-
-    exit = enter = appear = timeout;
-
-    if (timeout != null && typeof timeout !== 'number') {
-      exit = timeout.exit;
-      enter = timeout.enter;
-      appear = timeout.appear;
-    }
-    return { exit: exit, enter: enter, appear: appear };
-  };
-
-  Transition.prototype.updateStatus = function updateStatus() {
-    var mounting = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-    var nextStatus = this.nextStatus;
-
-    if (nextStatus !== null) {
-      this.nextStatus = null;
-      // nextStatus will always be ENTERING or EXITING.
-      this.cancelNextCallback();
-      var node = _reactDom2.default.findDOMNode(this);
-
-      if (nextStatus === ENTERING) {
-        this.performEnter(node, mounting);
-      } else {
-        this.performExit(node);
-      }
-    } else if (this.props.unmountOnExit && this.state.status === EXITED) {
-      this.setState({ status: UNMOUNTED });
-    }
-  };
-
-  Transition.prototype.performEnter = function performEnter(node, mounting) {
-    var _this2 = this;
-
-    var enter = this.props.enter;
-
-    var appearing = this.context.transitionGroup ? this.context.transitionGroup.isMounting : mounting;
-
-    var timeouts = this.getTimeouts();
-
-    // no enter animation skip right to ENTERED
-    // if we are mounting and running this it means appear _must_ be set
-    if (!mounting && !enter) {
-      this.safeSetState({ status: ENTERED }, function () {
-        _this2.props.onEntered(node);
-      });
-      return;
-    }
-
-    this.props.onEnter(node, appearing);
-
-    this.safeSetState({ status: ENTERING }, function () {
-      _this2.props.onEntering(node, appearing);
-
-      // FIXME: appear timeout?
-      _this2.onTransitionEnd(node, timeouts.enter, function () {
-        _this2.safeSetState({ status: ENTERED }, function () {
-          _this2.props.onEntered(node, appearing);
-        });
-      });
-    });
-  };
-
-  Transition.prototype.performExit = function performExit(node) {
-    var _this3 = this;
-
-    var exit = this.props.exit;
-
-    var timeouts = this.getTimeouts();
-
-    // no exit animation skip right to EXITED
-    if (!exit) {
-      this.safeSetState({ status: EXITED }, function () {
-        _this3.props.onExited(node);
-      });
-      return;
-    }
-    this.props.onExit(node);
-
-    this.safeSetState({ status: EXITING }, function () {
-      _this3.props.onExiting(node);
-
-      _this3.onTransitionEnd(node, timeouts.exit, function () {
-        _this3.safeSetState({ status: EXITED }, function () {
-          _this3.props.onExited(node);
-        });
-      });
-    });
-  };
-
-  Transition.prototype.cancelNextCallback = function cancelNextCallback() {
-    if (this.nextCallback !== null) {
-      this.nextCallback.cancel();
-      this.nextCallback = null;
-    }
-  };
-
-  Transition.prototype.safeSetState = function safeSetState(nextState, callback) {
-    var _this4 = this;
-
-    // We need to track pending updates for instances where a cWRP fires quickly
-    // after cDM and before the state flushes, which would double trigger a
-    // transition
-    this.pendingState = nextState;
-
-    // This shouldn't be necessary, but there are weird race conditions with
-    // setState callbacks and unmounting in testing, so always make sure that
-    // we can cancel any pending setState callbacks after we unmount.
-    callback = this.setNextCallback(callback);
-    this.setState(nextState, function () {
-      _this4.pendingState = null;
-      callback();
-    });
-  };
-
-  Transition.prototype.setNextCallback = function setNextCallback(callback) {
-    var _this5 = this;
-
-    var active = true;
-
-    this.nextCallback = function (event) {
-      if (active) {
-        active = false;
-        _this5.nextCallback = null;
-
-        callback(event);
-      }
-    };
-
-    this.nextCallback.cancel = function () {
-      active = false;
-    };
-
-    return this.nextCallback;
-  };
-
-  Transition.prototype.onTransitionEnd = function onTransitionEnd(node, timeout, handler) {
-    this.setNextCallback(handler);
-
-    if (node) {
-      if (this.props.addEndListener) {
-        this.props.addEndListener(node, this.nextCallback);
-      }
-      if (timeout != null) {
-        setTimeout(this.nextCallback, timeout);
-      }
-    } else {
-      setTimeout(this.nextCallback, 0);
-    }
-  };
-
-  Transition.prototype.render = function render() {
-    var status = this.state.status;
-    if (status === UNMOUNTED) {
-      return null;
-    }
-
-    var _props = this.props,
-        children = _props.children,
-        childProps = _objectWithoutProperties(_props, ['children']);
-    // filter props for Transtition
-
-
-    delete childProps.in;
-    delete childProps.mountOnEnter;
-    delete childProps.unmountOnExit;
-    delete childProps.appear;
-    delete childProps.enter;
-    delete childProps.exit;
-    delete childProps.timeout;
-    delete childProps.addEndListener;
-    delete childProps.onEnter;
-    delete childProps.onEntering;
-    delete childProps.onEntered;
-    delete childProps.onExit;
-    delete childProps.onExiting;
-    delete childProps.onExited;
-
-    if (typeof children === 'function') {
-      return children(status, childProps);
-    }
-
-    var child = _react2.default.Children.only(children);
-    return _react2.default.cloneElement(child, childProps);
-  };
-
-  return Transition;
-}(_react2.default.Component);
-
-Transition.contextTypes = {
-  transitionGroup: PropTypes.object
-};
-Transition.childContextTypes = {
-  transitionGroup: function transitionGroup() {}
-};
-
-
-Transition.propTypes = {
-  /**
-   * A `function` child can be used instead of a React element.
-   * This function is called with the current transition status
-   * ('entering', 'entered', 'exiting', 'exited', 'unmounted'), which can used
-   * to apply context specific props to a component.
-   *
-   * ```jsx
-   * <Transition timeout={150}>
-   *   {(status) => (
-   *     <MyComponent className={`fade fade-${status}`} />
-   *   )}
-   * </Transition>
-   * ```
-   */
-  children: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.element.isRequired]).isRequired,
-
-  /**
-   * Show the component; triggers the enter or exit states
-   */
-  in: PropTypes.bool,
-
-  /**
-   * By default the child component is mounted immediately along with
-   * the parent `Transition` component. If you want to "lazy mount" the component on the
-   * first `in={true}` you can set `mountOnEnter`. After the first enter transition the component will stay
-   * mounted, even on "exited", unless you also specify `unmountOnExit`.
-   */
-  mountOnEnter: PropTypes.bool,
-
-  /**
-   * By default the child component stays mounted after it reaches the `'exited'` state.
-   * Set `unmountOnExit` if you'd prefer to unmount the component after it finishes exiting.
-   */
-  unmountOnExit: PropTypes.bool,
-
-  /**
-   * Normally a component is not transitioned if it is shown when the `<Transition>` component mounts.
-   * If you want to transition on the first mount set `appear` to `true`, and the
-   * component will transition in as soon as the `<Transition>` mounts.
-   *
-   * > Note: there are no specific "appear" states. `appear` only adds an additional `enter` transition.
-   */
-  appear: PropTypes.bool,
-
-  /**
-   * Enable or disable enter transitions.
-   */
-  enter: PropTypes.bool,
-
-  /**
-   * Enable or disable exit transitions.
-   */
-  exit: PropTypes.bool,
-
-  /**
-   * The duration of the transition, in milliseconds.
-   * Required unless `addEventListener` is provided
-   *
-   * You may specify a single timeout for all transitions like: `timeout={500}`,
-   * or individually like:
-   *
-   * ```jsx
-   * timeout={{
-   *  enter: 300,
-   *  exit: 500,
-   * }}
-   * ```
-   *
-   * @type {number | { enter?: number, exit?: number }}
-   */
-  timeout: function timeout(props) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-
-    var pt = PropTypes$1.timeoutsShape;
-    if (!props.addEndListener) pt = pt.isRequired;
-    return pt.apply(undefined, [props].concat(args));
+var initialState = {
+  stepsSize: 0,
+  formOptions: {
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true
   },
-
-  /**
-   * Add a custom transition end trigger. Called with the transitioning
-   * DOM node and a `done` callback. Allows for more fine grained transition end
-   * logic. **Note:** Timeouts are still used as a fallback if provided.
-   *
-   * ```jsx
-   * addEndListener={(node, done) => {
-   *   // use the css transitionend event to mark the finish of a transition
-   *   node.addEventListener('transitionend', done, false);
-   * }}
-   * ```
-   */
-  addEndListener: PropTypes.func,
-
-  /**
-   * Callback fired before the "entering" status is applied. An extra parameter
-   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
-   *
-   * @type Function(node: HtmlElement, isAppearing: bool) -> void
-   */
-  onEnter: PropTypes.func,
-
-  /**
-   * Callback fired after the "entering" status is applied. An extra parameter
-   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
-   *
-   * @type Function(node: HtmlElement, isAppearing: bool)
-   */
-  onEntering: PropTypes.func,
-
-  /**
-   * Callback fired after the "entered" status is applied. An extra parameter
-   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
-   *
-   * @type Function(node: HtmlElement, isAppearing: bool) -> void
-   */
-  onEntered: PropTypes.func,
-
-  /**
-   * Callback fired before the "exiting" status is applied.
-   *
-   * @type Function(node: HtmlElement) -> void
-   */
-  onExit: PropTypes.func,
-
-  /**
-   * Callback fired after the "exiting" status is applied.
-   *
-   * @type Function(node: HtmlElement) -> void
-   */
-  onExiting: PropTypes.func,
-
-  /**
-   * Callback fired after the "exited" status is applied.
-   *
-   * @type Function(node: HtmlElement) -> void
-   */
-  onExited: PropTypes.func
+  currentStep: 0,
+  data: {},
+  isLoaded: false
 };
 
-// Name the function so it is clearer in the documentation
-function noop() {}
-
-Transition.defaultProps = {
-  in: false,
-  mountOnEnter: false,
-  unmountOnExit: false,
-  appear: false,
-  enter: true,
-  exit: true,
-
-  onEnter: noop,
-  onEntering: noop,
-  onEntered: noop,
-
-  onExit: noop,
-  onExiting: noop,
-  onExited: noop
-};
-
-Transition.UNMOUNTED = 0;
-Transition.EXITED = 1;
-Transition.ENTERING = 2;
-Transition.ENTERED = 3;
-Transition.EXITING = 4;
-
-exports.default = Transition;
-});
-
-unwrapExports(Transition_1);
-var Transition_2 = Transition_1.EXITING;
-var Transition_3 = Transition_1.ENTERED;
-var Transition_4 = Transition_1.ENTERING;
-var Transition_5 = Transition_1.EXITED;
-var Transition_6 = Transition_1.UNMOUNTED;
-
-var CSSTransition_1 = createCommonjsModule(function (module, exports) {
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-
-
-var PropTypes = _interopRequireWildcard(propTypes);
-
-
-
-var _addClass2 = _interopRequireDefault(addClass_1);
-
-
-
-var _removeClass2 = _interopRequireDefault(removeClass);
-
-
-
-var _react2 = _interopRequireDefault(react);
-
-
-
-var _Transition2 = _interopRequireDefault(Transition_1);
-
-
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var addClass = function addClass(node, classes) {
-  return classes && classes.split(' ').forEach(function (c) {
-    return (0, _addClass2.default)(node, c);
-  });
-};
-var removeClass$$1 = function removeClass$$1(node, classes) {
-  return classes && classes.split(' ').forEach(function (c) {
-    return (0, _removeClass2.default)(node, c);
-  });
-};
-
-var propTypes$$1 = _extends({}, _Transition2.default.propTypes, {
-
-  /**
-   * The animation classNames applied to the component as it enters or exits.
-   * A single name can be provided and it will be suffixed for each stage: e.g.
-   *
-   * `classNames="fade"` applies `fade-enter`, `fade-enter-active`,
-   * `fade-exit`, `fade-exit-active`, `fade-appear`, and `fade-appear-active`.
-   * Each individual classNames can also be specified independently like:
-   *
-   * ```js
-   * classNames={{
-   *  appear: 'my-appear',
-   *  appearActive: 'my-active-appear',
-   *  enter: 'my-enter',
-   *  enterActive: 'my-active-enter',
-   *  exit: 'my-exit',
-   *  exitActive: 'my-active-exit',
-   * }}
-   * ```
-   *
-   * @type {string | {
-   *  appear?: string,
-   *  appearActive?: string,
-   *  enter?: string,
-   *  enterActive?: string,
-   *  exit?: string,
-   *  exitActive?: string,
-   * }}
-   */
-  classNames: PropTypes$1.classNamesShape,
-
-  /**
-   * A `<Transition>` callback fired immediately after the 'enter' or 'appear' class is
-   * applied.
-   *
-   * @type Function(node: HtmlElement, isAppearing: bool)
-   */
-  onEnter: PropTypes.func,
-
-  /**
-   * A `<Transition>` callback fired immediately after the 'enter-active' or
-   * 'appear-active' class is applied.
-   *
-   * @type Function(node: HtmlElement, isAppearing: bool)
-   */
-  onEntering: PropTypes.func,
-
-  /**
-   * A `<Transition>` callback fired immediately after the 'enter' or
-   * 'appear' classes are **removed** from the DOM node.
-   *
-   * @type Function(node: HtmlElement, isAppearing: bool)
-   */
-  onEntered: PropTypes.func,
-
-  /**
-   * A `<Transition>` callback fired immediately after the 'exit' class is
-   * applied.
-   *
-   * @type Function(node: HtmlElement)
-   */
-  onExit: PropTypes.func,
-
-  /**
-   * A `<Transition>` callback fired immediately after the 'exit-active' is applied.
-   *
-   * @type Function(node: HtmlElement
-   */
-  onExiting: PropTypes.func,
-
-  /**
-   * A `<Transition>` callback fired immediately after the 'exit' classes
-   * are **removed** from the DOM node.
-   *
-   * @type Function(node: HtmlElement)
-   */
-  onExited: PropTypes.func
-});
-
-/**
- * A `Transition` component using CSS transitions and animations.
- * It's inspired by the excellent [ng-animate](http://www.nganimate.org/) library.
- *
- * `CSSTransition` applies a pair of class names during the `appear`, `enter`,
- * and `exit` stages of the transition. The first class is applied and then a
- * second "active" class in order to activate the css animation.
- *
- * When the `in` prop is toggled to `true` the Component will get
- * the `example-enter` CSS class and the `example-enter-active` CSS class
- * added in the next tick. This is a convention based on the `classNames` prop.
- *
- * ```js
- * import CSSTransition from 'react-transition-group/CSSTransition';
- *
- * const Fade = ({ children, ...props }) => (
- *  <CSSTransition
- *    {...props}
- *    timeout={500}
- *    classNames="fade"
- *  >
- *   {children}
- *  </CSSTransition>
- * );
- *
- * class FadeInAndOut extends React.Component {
- *   constructor(...args) {
- *     super(...args);
- *     this.state= { show: false }
- *
- *     setInterval(() => {
- *       this.setState({ show: !this.state.show })
- *     }, 5000)
- *   }
- *   render() {
- *     return (
- *       <Fade in={this.state.show}>
- *         <div>Hello world</div>
- *       </Fade>
- *     )
- *   }
- * }
- * ```
- *
- * And the coorresponding CSS for the `<Fade>` component:
- *
- * ```css
- * .fade-enter {
- *   opacity: 0.01;
- * }
- *
- * .fade-enter.fade-enter-active {
- *   opacity: 1;
- *   transition: opacity 500ms ease-in;
- * }
- *
- * .fade-exit {
- *   opacity: 1;
- * }
- *
- * .fade-exit.fade-exit-active {
- *   opacity: 0.01;
- *   transition: opacity 300ms ease-in;
- * }
- * ```
- */
-
-var CSSTransition = function (_React$Component) {
-  _inherits(CSSTransition, _React$Component);
-
-  function CSSTransition() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, CSSTransition);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.onEnter = function (node, appearing) {
-      var _this$getClassNames = _this.getClassNames(appearing ? 'appear' : 'enter'),
-          className = _this$getClassNames.className;
-
-      _this.removeClasses(node, 'exit');
-      addClass(node, className);
-
-      if (_this.props.onEnter) {
-        _this.props.onEnter(node);
-      }
-    }, _this.onEntering = function (node, appearing) {
-      var _this$getClassNames2 = _this.getClassNames(appearing ? 'appear' : 'enter'),
-          activeClassName = _this$getClassNames2.activeClassName;
-
-      _this.reflowAndAddClass(node, activeClassName);
-
-      if (_this.props.onEntering) {
-        _this.props.onEntering(node);
-      }
-    }, _this.onEntered = function (node, appearing) {
-      _this.removeClasses(node, appearing ? 'appear' : 'enter');
-
-      if (_this.props.onEntered) {
-        _this.props.onEntered(node);
-      }
-    }, _this.onExit = function (node) {
-      var _this$getClassNames3 = _this.getClassNames('exit'),
-          className = _this$getClassNames3.className;
-
-      _this.removeClasses(node, 'appear');
-      _this.removeClasses(node, 'enter');
-      addClass(node, className);
-
-      if (_this.props.onExit) {
-        _this.props.onExit(node);
-      }
-    }, _this.onExiting = function (node) {
-      var _this$getClassNames4 = _this.getClassNames('exit'),
-          activeClassName = _this$getClassNames4.activeClassName;
-
-      _this.reflowAndAddClass(node, activeClassName);
-
-      if (_this.props.onExiting) {
-        _this.props.onExiting(node);
-      }
-    }, _this.onExited = function (node) {
-      _this.removeClasses(node, 'exit');
-
-      if (_this.props.onExited) {
-        _this.props.onExited(node);
-      }
-    }, _this.getClassNames = function (type) {
-      var classNames = _this.props.classNames;
-
-
-      var className = typeof classNames !== 'string' ? classNames[type] : classNames + '-' + type;
-
-      var activeClassName = typeof classNames !== 'string' ? classNames[type + 'Active'] : className + '-active';
-
-      return { className: className, activeClassName: activeClassName };
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  CSSTransition.prototype.removeClasses = function removeClasses(node, type) {
-    var _getClassNames = this.getClassNames(type),
-        className = _getClassNames.className,
-        activeClassName = _getClassNames.activeClassName;
-
-    className && removeClass$$1(node, className);
-    activeClassName && removeClass$$1(node, activeClassName);
-  };
-
-  CSSTransition.prototype.reflowAndAddClass = function reflowAndAddClass(node, className) {
-    // This is for to force a repaint,
-    // which is necessary in order to transition styles when adding a class name.
-    /* eslint-disable no-unused-expressions */
-    node.scrollTop;
-    /* eslint-enable no-unused-expressions */
-    addClass(node, className);
-  };
-
-  CSSTransition.prototype.render = function render() {
-    var props = _extends({}, this.props);
-
-    delete props.classNames;
-
-    return _react2.default.createElement(_Transition2.default, _extends({}, props, {
-      onEnter: this.onEnter,
-      onEntered: this.onEntered,
-      onEntering: this.onEntering,
-      onExit: this.onExit,
-      onExiting: this.onExiting,
-      onExited: this.onExited
-    }));
-  };
-
-  return CSSTransition;
-}(_react2.default.Component);
-
-CSSTransition.propTypes = propTypes$$1;
-
-exports.default = CSSTransition;
-module.exports = exports['default'];
-});
-
-unwrapExports(CSSTransition_1);
-
-var ChildMapping = createCommonjsModule(function (module, exports) {
-exports.__esModule = true;
-exports.getChildMapping = getChildMapping;
-exports.mergeChildMappings = mergeChildMappings;
-
-
-
-/**
- * Given `this.props.children`, return an object mapping key to child.
- *
- * @param {*} children `this.props.children`
- * @return {object} Mapping of key to child
- */
-function getChildMapping(children, mapFn) {
-  var mapper = function mapper(child) {
-    return mapFn && (0, react.isValidElement)(child) ? mapFn(child) : child;
-  };
-
-  var result = Object.create(null);
-  if (children) react.Children.map(children, function (c) {
-    return c;
-  }).forEach(function (child) {
-    // run the map function here instead so that the key is the computed one
-    result[child.key] = mapper(child);
-  });
-  return result;
-}
-
-/**
- * When you're adding or removing children some may be added or removed in the
- * same render pass. We want to show *both* since we want to simultaneously
- * animate elements in and out. This function takes a previous set of keys
- * and a new set of keys and merges them with its best guess of the correct
- * ordering. In the future we may expose some of the utilities in
- * ReactMultiChild to make this easy, but for now React itself does not
- * directly have this concept of the union of prevChildren and nextChildren
- * so we implement it here.
- *
- * @param {object} prev prev children as returned from
- * `ReactTransitionChildMapping.getChildMapping()`.
- * @param {object} next next children as returned from
- * `ReactTransitionChildMapping.getChildMapping()`.
- * @return {object} a key set that contains all keys in `prev` and all keys
- * in `next` in a reasonable order.
- */
-function mergeChildMappings(prev, next) {
-  prev = prev || {};
-  next = next || {};
-
-  function getValueForKey(key) {
-    return key in next ? next[key] : prev[key];
-  }
-
-  // For each key of `next`, the list of keys to insert before that key in
-  // the combined list
-  var nextKeysPending = Object.create(null);
-
-  var pendingKeys = [];
-  for (var prevKey in prev) {
-    if (prevKey in next) {
-      if (pendingKeys.length) {
-        nextKeysPending[prevKey] = pendingKeys;
-        pendingKeys = [];
-      }
-    } else {
-      pendingKeys.push(prevKey);
-    }
-  }
-
-  var i = void 0;
-  var childMapping = {};
-  for (var nextKey in next) {
-    if (nextKeysPending[nextKey]) {
-      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
-        var pendingNextKey = nextKeysPending[nextKey][i];
-        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
-      }
-    }
-    childMapping[nextKey] = getValueForKey(nextKey);
-  }
-
-  // Finally, add the keys which didn't appear before any key in `next`
-  for (i = 0; i < pendingKeys.length; i++) {
-    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
-  }
-
-  return childMapping;
-}
-});
-
-unwrapExports(ChildMapping);
-var ChildMapping_1 = ChildMapping.getChildMapping;
-var ChildMapping_2 = ChildMapping.mergeChildMappings;
-
-var TransitionGroup_1 = createCommonjsModule(function (module, exports) {
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-
-
-var _propTypes2 = _interopRequireDefault(propTypes);
-
-
-
-var _react2 = _interopRequireDefault(react);
-
-
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var values = Object.values || function (obj) {
-  return Object.keys(obj).map(function (k) {
-    return obj[k];
-  });
-};
-
-var propTypes$$2 = {
-  /**
-   * `<TransitionGroup>` renders a `<div>` by default. You can change this
-   * behavior by providing a `component` prop.
-   */
-  component: _propTypes2.default.any,
-  /**
-   * A set of `<Transition>` components, that are toggled `in` and out as they
-   * leave. the `<TransitionGroup>` will inject specific transition props, so
-   * remember to spread them through if you are wrapping the `<Transition>` as
-   * with our `<Fade>` example.
-   */
-  children: _propTypes2.default.node,
-
-  /**
-   * A convenience prop that enables or disabled appear animations
-   * for all children. Note that specifying this will override any defaults set
-   * on individual children Transitions.
-   */
-  appear: _propTypes2.default.bool,
-  /**
-   * A convenience prop that enables or disabled enter animations
-   * for all children. Note that specifying this will override any defaults set
-   * on individual children Transitions.
-   */
-  enter: _propTypes2.default.bool,
-  /**
-    * A convenience prop that enables or disabled exit animations
-    * for all children. Note that specifying this will override any defaults set
-    * on individual children Transitions.
-    */
-  exit: _propTypes2.default.bool,
-
-  /**
-   * You may need to apply reactive updates to a child as it is exiting.
-   * This is generally done by using `cloneElement` however in the case of an exiting
-   * child the element has already been removed and not accessible to the consumer.
-   *
-   * If you do need to update a child as it leaves you can provide a `childFactory`
-   * to wrap every child, even the ones that are leaving.
-   *
-   * @type Function(child: ReactElement) -> ReactElement
-   */
-  childFactory: _propTypes2.default.func
-};
-
-var defaultProps = {
-  component: 'div',
-  childFactory: function childFactory(child) {
-    return child;
-  }
-};
-
-/**
- * The `<TransitionGroup>` component manages a set of `<Transition>` components
- * in a list. Like with the `<Transition>` component, `<TransitionGroup>`, is a
- * state machine for managing the mounting and unmounting of components over
- * time.
- *
- * Consider the example below using the `Fade` CSS transition from before.
- * As items are removed or added to the TodoList the `in` prop is toggled
- * automatically by the `<TransitionGroup>`. You can use _any_ `<Transition>`
- * component in a `<TransitionGroup>`, not just css.
- *
- * ```jsx
- * import TransitionGroup from 'react-transition-group/TransitionGroup';
- *
- * class TodoList extends React.Component {
- *   constructor(props) {
- *     super(props)
- *     this.state = {items: ['hello', 'world', 'click', 'me']}
- *   }
- *   handleAdd() {
- *     const newItems = this.state.items.concat([
- *       prompt('Enter some text')
- *     ]);
- *     this.setState({ items: newItems });
- *   }
- *   handleRemove(i) {
- *     let newItems = this.state.items.slice();
- *     newItems.splice(i, 1);
- *     this.setState({items: newItems});
- *   }
- *   render() {
- *     return (
- *       <div>
- *         <button onClick={() => this.handleAdd()}>Add Item</button>
- *         <TransitionGroup>
- *           {this.state.items.map((item, i) => (
- *             <FadeTransition key={item}>
- *               <div>
- *                 {item}{' '}
- *                 <button onClick={() => this.handleRemove(i)}>
- *                   remove
- *                 </button>
- *               </div>
- *             </FadeTransition>
- *           ))}
- *         </TransitionGroup>
- *       </div>
- *     );
- *   }
- * }
- * ```
- *
- * Note that `<TransitionGroup>`  does not define any animation behavior!
- * Exactly _how_ a list item animates is up to the individual `<Transition>`
- * components. This means you can mix and match animations across different
- * list items.
- */
-
-var TransitionGroup = function (_React$Component) {
-  _inherits(TransitionGroup, _React$Component);
-
-  function TransitionGroup(props, context) {
-    _classCallCheck(this, TransitionGroup);
-
-    // Initial children should all be entering, dependent on appear
-    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
-
-    _this.handleExited = function (key, node, originalHandler) {
-      var currentChildMapping = (0, ChildMapping.getChildMapping)(_this.props.children);
-
-      if (key in currentChildMapping) return;
-
-      if (originalHandler) originalHandler(node);
-
-      _this.setState(function (state) {
-        var children = _extends({}, state.children);
-
-        delete children[key];
-        return { children: children };
+var wizardReducer = function wizardReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case types.WIZARD_LOAD:
+      return _extends$19({}, state, {
+        currentStep: 0,
+        stepsSize: action.payload.stepsSize,
+        formOptions: _extends$19({}, state.formOptions, action.payload.formOptions),
+        isLoaded: true
       });
-    };
-
-    _this.state = {
-      children: (0, ChildMapping.getChildMapping)(props.children, function (child) {
-        var onExited = function onExited(node) {
-          _this.handleExited(child.key, node, child.props.onExited);
-        };
-
-        return (0, react.cloneElement)(child, {
-          onExited: onExited,
-          in: true,
-          appear: _this.getProp(child, 'appear'),
-          enter: _this.getProp(child, 'enter'),
-          exit: _this.getProp(child, 'exit')
-        });
-      })
-    };
-    return _this;
+    case types.WIZARD_NEXT_STEP:
+      return _extends$19({}, state, { currentStep: state.currentStep + 1 });
+    case types.WIZARD_PREVIOUS_STEP:
+      return _extends$19({}, state, { currentStep: state.currentStep - 1 });
+    case types.WIZARD_GO_TO_STEP:
+      return _extends$19({}, state, { currentStep: action.payload });
+    case types.WIZARD_FORM_SUBMIT:
+      return _extends$19({}, state, { currentStep: state.currentStep + 1, data: action.payload });
+    default:
+      return state;
   }
-
-  TransitionGroup.prototype.getChildContext = function getChildContext() {
-    return {
-      transitionGroup: { isMounting: !this.appeared }
-    };
-  };
-  // use child config unless explictly set by the Group
-
-
-  TransitionGroup.prototype.getProp = function getProp(child, prop) {
-    var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.props;
-
-    return props[prop] != null ? props[prop] : child.props[prop];
-  };
-
-  TransitionGroup.prototype.componentDidMount = function componentDidMount() {
-    this.appeared = true;
-  };
-
-  TransitionGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    var _this2 = this;
-
-    var prevChildMapping = this.state.children;
-    var nextChildMapping = (0, ChildMapping.getChildMapping)(nextProps.children);
-
-    var children = (0, ChildMapping.mergeChildMappings)(prevChildMapping, nextChildMapping);
-
-    Object.keys(children).forEach(function (key) {
-      var child = children[key];
-
-      if (!(0, react.isValidElement)(child)) return;
-
-      var onExited = function onExited(node) {
-        _this2.handleExited(child.key, node, child.props.onExited);
-      };
-
-      var hasPrev = key in prevChildMapping;
-      var hasNext = key in nextChildMapping;
-
-      var prevChild = prevChildMapping[key];
-      var isLeaving = (0, react.isValidElement)(prevChild) && !prevChild.props.in;
-
-      // item is new (entering)
-      if (hasNext && (!hasPrev || isLeaving)) {
-        // console.log('entering', key)
-        children[key] = (0, react.cloneElement)(child, {
-          onExited: onExited,
-          in: true,
-          exit: _this2.getProp(child, 'exit', nextProps),
-          enter: _this2.getProp(child, 'enter', nextProps)
-        });
-      }
-      // item is old (exiting)
-      else if (!hasNext && hasPrev && !isLeaving) {
-          // console.log('leaving', key)
-          children[key] = (0, react.cloneElement)(child, { in: false });
-        }
-        // item hasn't changed transition states
-        // copy over the last transition props;
-        else if (hasNext && hasPrev && (0, react.isValidElement)(prevChild)) {
-            // console.log('unchanged', key)
-            children[key] = (0, react.cloneElement)(child, {
-              onExited: onExited,
-              in: prevChild.props.in,
-              exit: _this2.getProp(child, 'exit', nextProps),
-              enter: _this2.getProp(child, 'enter', nextProps)
-            });
-          }
-    });
-
-    this.setState({ children: children });
-  };
-
-  TransitionGroup.prototype.render = function render() {
-    var _props = this.props,
-        Component = _props.component,
-        childFactory = _props.childFactory,
-        props = _objectWithoutProperties(_props, ['component', 'childFactory']);
-
-    var children = this.state.children;
-
-
-    delete props.appear;
-    delete props.enter;
-    delete props.exit;
-
-    return _react2.default.createElement(
-      Component,
-      props,
-      values(children).map(childFactory)
-    );
-  };
-
-  return TransitionGroup;
-}(_react2.default.Component);
-
-TransitionGroup.childContextTypes = {
-  transitionGroup: _propTypes2.default.object.isRequired
 };
 
-
-TransitionGroup.propTypes = propTypes$$2;
-TransitionGroup.defaultProps = defaultProps;
-
-exports.default = TransitionGroup;
-module.exports = exports['default'];
-});
-
-unwrapExports(TransitionGroup_1);
-
-var reactTransitionGroup = createCommonjsModule(function (module) {
-var _CSSTransition2 = _interopRequireDefault(CSSTransition_1);
-
-
-
-var _TransitionGroup2 = _interopRequireDefault(TransitionGroup_1);
-
-
-
-var _Transition2 = _interopRequireDefault(Transition_1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-module.exports = {
-  Transition: _Transition2.default,
-  TransitionGroup: _TransitionGroup2.default,
-  CSSTransition: _CSSTransition2.default
+var getFormOptions = function getFormOptions(state) {
+  return state.wizard.formOptions;
 };
-});
-
-unwrapExports(reactTransitionGroup);
-var reactTransitionGroup_1 = reactTransitionGroup.Transition;
-var reactTransitionGroup_2 = reactTransitionGroup.TransitionGroup;
-var reactTransitionGroup_3 = reactTransitionGroup.CSSTransition;
+var getIsLoaded = function getIsLoaded(state) {
+  return state.wizard.isLoaded;
+};
+var getData = function getData(state) {
+  return state.wizard.data;
+};
+var getCurrentStep = function getCurrentStep(state) {
+  return state.wizard.currentStep;
+};
+var getStepsSize = function getStepsSize(state) {
+  return state.wizard.stepsSize;
+};
 
 /*!
  * isobject <https://github.com/jonschlinkert/isobject>
@@ -32212,208 +30870,157 @@ var StyledComponent = _StyledComponent(ComponentStyle, constructWithOptions);
 /* Instantiate exported singletons */
 var styled = _styled(StyledComponent, constructWithOptions);
 
-var _templateObject = taggedTemplateLiteral(['\n  display: flex;\n  flex-direction: column;\n'], ['\n  display: flex;\n  flex-direction: column;\n']);
-var _templateObject2 = taggedTemplateLiteral(['\n  white-space: nowrap;\n  overflow: hidden;\n'], ['\n  white-space: nowrap;\n  overflow: hidden;\n']);
-var _templateObject3 = taggedTemplateLiteral(['\n  display: inline-block;\n  opacity: 0;\n  transform: translateX(0);\n  transition: opacity 500ms cubic-bezier(0.45, 0.07, 0.83, 0.67), transform 750ms cubic-bezier(0.21, 1, 1, 0.89);\n  width: 100%;\n'], ['\n  display: inline-block;\n  opacity: 0;\n  transform: translateX(0);\n  transition: opacity 500ms cubic-bezier(0.45, 0.07, 0.83, 0.67), transform 750ms cubic-bezier(0.21, 1, 1, 0.89);\n  width: 100%;\n']);
-var _templateObject4 = taggedTemplateLiteral(['\n  align-items: center;\n  display: flex;\n  justify-content: center;\n  margin-top: 10px;\n'], ['\n  align-items: center;\n  display: flex;\n  justify-content: center;\n  margin-top: 10px;\n']);
-var _templateObject5 = taggedTemplateLiteral(['\n  background-color: #9b9393;\n  border-radius: 50%;\n  height: 10px;\n  margin-right: 5px;\n  opacity: ', ';\n  width: 10px;\n'], ['\n  background-color: #9b9393;\n  border-radius: 50%;\n  height: 10px;\n  margin-right: 5px;\n  opacity: ', ';\n  width: 10px;\n']);
+var _templateObject = taggedTemplateLiteral(['\n  white-space: nowrap;\n  overflow: hidden;\n'], ['\n  white-space: nowrap;\n  overflow: hidden;\n']);
 
 var Wrapper = styled.div(_templateObject);
 
-var StepsWrapper = styled.div(_templateObject2);
+var WizardFormComponent = function (_Component) {
+  inherits(WizardFormComponent, _Component);
 
-var StepWrapper = styled.div(_templateObject3);
-
-var PointsWrapper = styled.div(_templateObject4);
-
-var PointWrapper = styled.span(_templateObject5, function (props) {
-  return props.isActive ? '1' : '0.5';
-});
-
-var WizardSteps = function WizardSteps(props) {
-  var stepTransition = {
-    entering: {
-      opacity: 0,
-      transform: 'translateX(' + (props.currentStep - 1) * -100 + '%)'
-    },
-    entered: {
-      opacity: 1,
-      transform: 'translateX(' + props.currentStep * -100 + '%)'
-    },
-    exited: {
-      opacity: 0,
-      transform: 'translateX(' + props.currentStep * -100 + '%)'
-    }
-  };
-
-  function renderStep(InnerStep, i) {
-    var WizardStep = reduxWizardStep(props.formOptions);
-
-    return react.createElement(
-      reactTransitionGroup_1,
-      { key: i, 'in': props.currentStep === i, timeout: 0 },
-      function (state) {
-        return react.createElement(
-          StepWrapper,
-          { style: _extends$19({}, stepTransition[state]) },
-          react.createElement(WizardStep, _extends$19({ Step: InnerStep }, props))
-        );
-      }
-    );
+  function WizardFormComponent() {
+    classCallCheck(this, WizardFormComponent);
+    return possibleConstructorReturn(this, (WizardFormComponent.__proto__ || Object.getPrototypeOf(WizardFormComponent)).apply(this, arguments));
   }
 
-  return react.createElement(
-    Wrapper,
-    null,
-    react.createElement(
-      StepsWrapper,
-      null,
-      props.steps.map(renderStep)
-    ),
-    react.createElement(
-      PointsWrapper,
-      null,
-      props.steps.map(function (InnerStep, i) {
-        return react.createElement(PointWrapper, { key: i, isActive: props.activatedSteps.includes(i) });
-      })
-    )
-  );
-};
+  createClass(WizardFormComponent, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props = this.props,
+          reduxFormOptions = _props.reduxFormOptions,
+          children = _props.children,
+          onWizardLoad = _props.onWizardLoad;
 
-WizardSteps.propTypes = {
-  steps: propTypes.arrayOf(propTypes.func).isRequired,
-  activatedSteps: propTypes.arrayOf(propTypes.number).isRequired,
-  currentStep: propTypes.number.isRequired,
-  formOptions: propTypes.object.isRequired,
-  onPreviousStep: propTypes.func.isRequired
-};
+      var childrenSize = Array.isArray(children) ? children.length : 1;
 
-var reduxWizardForm = function reduxWizardForm(formOptions) {
-  return function (steps) {
-    if (!Array.isArray(steps)) {
-      return function () {
-        return null;
-      };
+      onWizardLoad(childrenSize, reduxFormOptions);
     }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var onWizardComplete = this.props.onWizardComplete;
 
-    var WizardForm = function (_Component) {
-      inherits(WizardForm, _Component);
 
-      function WizardForm() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
-        classCallCheck(this, WizardForm);
-
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = possibleConstructorReturn(this, (_ref = WizardForm.__proto__ || Object.getPrototypeOf(WizardForm)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-          formData: {},
-          currentStep: 0,
-          activatedSteps: [0]
-        }, _this.onNextStep = function () {
-          var nextStep = _this.state.currentStep + 1;
-
-          if (_this.isValidStep(nextStep)) {
-            _this.setState({ currentStep: nextStep });
-          }
-        }, _this.onPreviousStep = function () {
-          var nextStep = _this.state.currentStep - 1;
-
-          if (_this.isValidStep(nextStep)) {
-            _this.setState({ currentStep: nextStep });
-          }
-        }, _this.onGoToStep = function (step) {
-          if (_this.isValidStep(step)) {
-            _this.setState({ currentStep: step });
-          }
-        }, _this.onSubmit = function (data) {
-          var _this$state = _this.state,
-              formData = _this$state.formData,
-              activatedSteps = _this$state.activatedSteps,
-              currentStep = _this$state.currentStep;
-
-          var nextFormData = _extends$19({}, formData, data);
-
-          if (_this.state.currentStep === _this.stepSize - 1) {
-            return _this.props.onWizardComplete(nextFormData);
-          }
-
-          _this.setState({
-            formData: nextFormData,
-            activatedSteps: [].concat(toConsumableArray(activatedSteps), [currentStep + 1])
-          });
-
-          return _this.onNextStep();
-        }, _this.stepSize = steps.length, _temp), possibleConstructorReturn(_this, _ret);
+      if (nextProps.currentStep === nextProps.stepsSize) {
+        onWizardComplete(nextProps.data);
       }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          children = _props2.children,
+          isLoaded = _props2.isLoaded;
 
-      createClass(WizardForm, [{
-        key: 'isValidStep',
-        value: function isValidStep(step) {
-          return step >= 0 && step < this.stepSize;
-        }
-      }, {
-        key: 'render',
-        value: function render() {
-          var _state = this.state,
-              currentStep = _state.currentStep,
-              activatedSteps = _state.activatedSteps,
-              nextAnimation = _state.nextAnimation,
-              prevAnimation = _state.prevAnimation;
+      return react.createElement(
+        Wrapper,
+        null,
+        isLoaded ? children : null
+      );
+    }
+  }]);
+  return WizardFormComponent;
+}(react_2);
 
+WizardFormComponent.propTypes = {
+  reduxFormOptions: propTypes.shape({
+    form: propTypes.string.isRequired,
+    onChange: propTypes.func,
+    onSubmit: propTypes.func,
+    onSubmitFail: propTypes.func,
+    onSubmitSuccess: propTypes.func
+  }).isRequired,
+  currentStep: propTypes.number.isRequired,
+  stepsSize: propTypes.number.isRequired,
+  isLoaded: propTypes.bool.isRequired,
+  data: propTypes.shape({}).isRequired,
+  children: propTypes.oneOfType([propTypes.arrayOf(propTypes.node), propTypes.node]).isRequired,
+  onWizardComplete: propTypes.func.isRequired,
+  onWizardLoad: propTypes.func.isRequired
+};
 
-          return react.createElement(WizardSteps, _extends$19({
-            formOptions: formOptions,
-            steps: steps,
-            currentStep: currentStep,
-            activatedSteps: activatedSteps,
-            nextAnimation: nextAnimation,
-            prevAnimation: prevAnimation,
-            onSubmit: this.onSubmit,
-            onGoToStep: this.onGoToStep,
-            onNextStep: this.onNextStep,
-            onPreviousStep: this.onPreviousStep
-          }, this.props));
-        }
-      }]);
-      return WizardForm;
-    }(react_2);
-
-    WizardForm.propTypes = {
-      onWizardComplete: propTypes.func.isRequired
-    };
-
-    return WizardForm;
+var WizardForm = connect(function (state) {
+  return {
+    isLoaded: getIsLoaded(state),
+    data: getData(state),
+    currentStep: getCurrentStep(state),
+    stepsSize: getStepsSize(state)
   };
+}, function (dispatch) {
+  return {
+    onWizardLoad: function onWizardLoad(stepsSize, formOptions) {
+      return dispatch(wizardLoad(stepsSize, formOptions));
+    }
+  };
+})(WizardFormComponent);
+
+var WizardStepComponent = function (_Component) {
+  inherits(WizardStepComponent, _Component);
+
+  function WizardStepComponent(props) {
+    classCallCheck(this, WizardStepComponent);
+
+    var _this = possibleConstructorReturn(this, (WizardStepComponent.__proto__ || Object.getPrototypeOf(WizardStepComponent)).call(this, props));
+
+    var formOptions = props.formOptions,
+        component = props.component,
+        onSubmit = props.onSubmit;
+
+    var InnerComponent = component;
+
+    _this.WizardStepForm = reduxForm(formOptions)(function (formProps) {
+      return react.createElement(
+        'form',
+        { onSubmit: formProps.handleSubmit(onSubmit) },
+        react.createElement(InnerComponent, formProps)
+      );
+    });
+    return _this;
+  }
+
+  createClass(WizardStepComponent, [{
+    key: 'render',
+    value: function render() {
+      var WizardStepForm = this.WizardStepForm;
+
+      return WizardStepForm && react.createElement(WizardStepForm, null);
+    }
+  }]);
+  return WizardStepComponent;
+}(react_2);
+
+WizardStepComponent.propTypes = {
+  component: propTypes.func.isRequired,
+  formOptions: propTypes.shape({
+    form: propTypes.string.isRequired,
+    onChange: propTypes.func,
+    onSubmit: propTypes.func,
+    onSubmitFail: propTypes.func,
+    onSubmitSuccess: propTypes.func
+  }).isRequired,
+  onSubmit: propTypes.func.isRequired
 };
 
-var reduxWizardStep = function reduxWizardStep(formOptions) {
-  var reduxFormInstance = reduxForm(_extends$19({}, formOptions, {
-    destroyOnUnmount: false,
-    forceUnregisterOnUnmount: true
-  }));
-
-  return reduxFormInstance(connect(function (state) {
-    return {
-      meta: getFormMeta(formOptions.form)(state),
-      errors: getFormSyncErrors(formOptions.form)(state)
-    };
-  }, null)(WizardStep));
-};
+var WizardStep = connect(function (state) {
+  return {
+    formOptions: getFormOptions(state)
+  };
+}, function (dispatch) {
+  return {
+    onSubmit: function onSubmit(data) {
+      return dispatch(formSubmit(data));
+    }
+  };
+})(WizardStepComponent);
 
 var _templateObject$1 = taggedTemplateLiteral(['\n  width: 100%;\n  height: 100%;\n'], ['\n  width: 100%;\n  height: 100%;\n']);
-var _templateObject2$1 = taggedTemplateLiteral(['\n  width: 50%;\n  margin: auto;\n'], ['\n  width: 50%;\n  margin: auto;\n']);
-var _templateObject3$1 = taggedTemplateLiteral(['\n  border: none;\n  display: flex;\n'], ['\n  border: none;\n  display: flex;\n']);
+var _templateObject2 = taggedTemplateLiteral(['\n  width: 50%;\n  margin: auto;\n'], ['\n  width: 50%;\n  margin: auto;\n']);
+var _templateObject3 = taggedTemplateLiteral(['\n  border: none;\n  display: flex;\n'], ['\n  border: none;\n  display: flex;\n']);
 
 var PageWrapper = styled.div(_templateObject$1);
 
-var WizardFormWrapper = styled.div(_templateObject2$1);
+var WizardFormWrapper = styled.div(_templateObject2);
 
-var FieldsetWrapper = styled.fieldset(_templateObject3$1);
+var FieldsetWrapper = styled.fieldset(_templateObject3);
 
 var FormStep1 = function FormStep1() {
   return react_4(
@@ -32430,15 +31037,10 @@ var FormStep1 = function FormStep1() {
   );
 };
 
-var FormStep2 = function FormStep2(props) {
+var FormStep2 = function FormStep2() {
   return react_4(
     FieldsetWrapper,
     null,
-    react_4(
-      'button',
-      { type: 'button', onClick: props.onPreviousStep },
-      'Previous Step'
-    ),
     react_4(Field, { name: 'phone', component: 'input', type: 'tel', placeholder: 'Phone' }),
     react_4(Field, { name: 'age', component: 'input', type: 'number', placeholder: 'Age' }),
     react_4(
@@ -32464,15 +31066,10 @@ var FormStep2 = function FormStep2(props) {
   );
 };
 
-var FormStep3 = function FormStep3(props) {
+var FormStep3 = function FormStep3() {
   return react_4(
     FieldsetWrapper,
     null,
-    react_4(
-      'button',
-      { type: 'button', onClick: props.onPreviousStep },
-      'Previous Step'
-    ),
     react_4(Field, { name: 'dni', component: 'input', type: 'test', placeholder: 'DNI' }),
     react_4(
       'button',
@@ -32483,18 +31080,22 @@ var FormStep3 = function FormStep3(props) {
 };
 
 var reducers = {
-  form: formReducer
+  form: formReducer,
+  wizard: wizardReducer
 };
 var reducer$$1 = combineReducers(reducers);
 var store = createStore(reducer$$1);
-var DemoWizardForm = reduxWizardForm({ form: 'demo' })([FormStep1, FormStep2, FormStep3]);
 
 document.addEventListener('DOMContentLoaded', function () {
+  function handleWizardComplete(data) {
+    console.log(data);
+  }
+
   reactDom_1(react_4(
     Provider,
     { store: store },
     react_4(
-      PageWrapper,
+      'div',
       null,
       react_4(
         'h1',
@@ -32502,11 +31103,11 @@ document.addEventListener('DOMContentLoaded', function () {
         ' Redux Form Wizard'
       ),
       react_4(
-        WizardFormWrapper,
-        null,
-        react_4(DemoWizardForm, { onWizardComplete: function onWizardComplete(data) {
-            return console.log(data);
-          } })
+        WizardForm,
+        { reduxFormOptions: { form: 'wizard' }, onWizardComplete: handleWizardComplete },
+        react_4(WizardStep, { component: FormStep1 }),
+        react_4(WizardStep, { component: FormStep2 }),
+        react_4(WizardStep, { component: FormStep3 })
       )
     )
   ), document.getElementById('app'));

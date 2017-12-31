@@ -1,5 +1,13 @@
 import types from './types';
 
+export const wizardLoad = (stepsSize, formOptions) => ({
+  type: types.WIZARD_LOAD,
+  payload: {
+    stepsSize,
+    formOptions
+  }
+});
+
 export const nextStep = () => ({
   type: types.WIZARD_NEXT_STEP
 });
