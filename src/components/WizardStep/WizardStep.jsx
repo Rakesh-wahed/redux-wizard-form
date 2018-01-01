@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
+import { Wrapper } from './WizardStepStyles';
 
 export class WizardStepComponent extends Component {
   constructor(props) {
@@ -9,9 +10,9 @@ export class WizardStepComponent extends Component {
     const InnerComponent = component;
 
     this.WizardStepForm = reduxForm(formOptions)(formProps => (
-      <form onSubmit={formProps.handleSubmit(onSubmit)}>
+      <Wrapper onSubmit={formProps.handleSubmit(onSubmit)}>
         <InnerComponent {...formProps} />
-      </form>
+      </Wrapper>
     ));
   }
 
