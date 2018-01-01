@@ -35,7 +35,7 @@ describe('REDUCER', () => {
       ...initialState,
       currentStep: 0,
       stepsSize: 3,
-      formOptions: { form: 'wizard' },
+      formOptions: { form: 'wizard', destroyOnUnmount: false, forceUnregisterOnUnmount: true },
       isLoaded: true
     });
   });
