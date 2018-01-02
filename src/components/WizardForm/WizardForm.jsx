@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Wrapper } from './WizardFormStyles';
+import { Wrapper, WrapperSteps } from './WizardFormStyles';
 
 export class WizardFormComponent extends Component {
   componentDidMount() {
@@ -19,8 +19,21 @@ export class WizardFormComponent extends Component {
   }
 
   render() {
-    const { children, isLoaded } = this.props;
-    return <Wrapper>{isLoaded ? children : null}</Wrapper>;
+    const { children, isLoaded, currentStep } = this.props;
+
+    if (!isLoaded) {
+      return false;
+    }
+
+    return (
+      <Wrapper>
+        {children.map((child, i) => (
+          <WrapperSteps key={i} currentStep={currentStep} isCurrentStep={currentStep === i}>
+            {child}
+          </WrapperSteps>
+        ))}
+      </Wrapper>
+    );
   }
 }
 

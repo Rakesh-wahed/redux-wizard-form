@@ -22,7 +22,6 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-redux": "^5.0.6",
-    "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
     "redux-form": "^7.2.0",
     "rollup": "^0.52.1",
