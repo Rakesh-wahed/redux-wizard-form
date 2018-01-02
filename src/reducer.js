@@ -27,8 +27,6 @@ export const wizardReducer = (state = initialState, action) => {
       return { ...state, currentStep: state.currentStep - 1 };
     case types.WIZARD_GO_TO_STEP:
       return { ...state, currentStep: action.payload };
-    case types.WIZARD_FORM_SUBMIT:
-      return { ...state, currentStep: state.currentStep + 1, data: action.payload };
     default:
       return state;
   }
