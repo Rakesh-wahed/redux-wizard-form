@@ -20,3 +20,7 @@ export const goToStep = step => ({
   type: types.WIZARD_PREVIOUS_STEP,
   payload: step
 });
+
+export const formSubmit = () => ({
+  type: types.WIZARD_FORM_SUBMIT
+});

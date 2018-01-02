@@ -20,6 +20,12 @@ describe('REDUCER', () => {
     expect(state).toEqual({ ...initialState, currentStep: 5 });
   });
 
+  test(`${types.WIZARD_FORM_SUBMIT}`, () => {
+    const initialTestState = { ...initialState, currentStep: 2 };
+    const state = wizardReducer(initialTestState, { type: types.WIZARD_FORM_SUBMIT });
+    expect(state).toEqual({ ...initialState, currentStep: 3 });
+  });
+
   test(`${types.WIZARD_LOAD}`, () => {
     const initialTestState = { ...initialState };
     const payload = { stepsSize: 3, formOptions: { form: 'wizard' } };

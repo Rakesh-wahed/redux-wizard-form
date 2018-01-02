@@ -23,8 +23,8 @@ describe('ACTIONS', () => {
   });
 
   test(`${types.WIZARD_FORM_SUBMIT}`, () => {
-    const action = actions.formSubmit({ name: 'Frank' });
-    expect(action).toEqual({ type: types.WIZARD_FORM_SUBMIT, payload: { name: 'Frank' } });
+    const action = actions.formSubmit();
+    expect(action).toEqual({ type: types.WIZARD_FORM_SUBMIT });
   });
 
   test(`${types.WIZARD_LOAD}`, () => {
