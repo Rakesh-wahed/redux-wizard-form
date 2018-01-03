@@ -6,15 +6,12 @@ export class WizardFormComponent extends Component {
   componentDidMount() {
     const { reduxFormOptions, children, onWizardLoad } = this.props;
     const childrenSize = Array.isArray(children) ? children.length : 1;
-
     onWizardLoad(childrenSize, reduxFormOptions);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { onWizardComplete } = this.props;
-
-    if (nextProps.currentStep === nextProps.stepsSize) {
-      onWizardComplete(nextProps.data);
+  componentWillReceiveProps(prevProps) {
+    if (prevProps.data) {
+      this.props.onWizardComplete(prevProps.data);
     }
   }
 
@@ -48,8 +45,12 @@ WizardFormComponent.propTypes = {
   currentStep: PropTypes.number.isRequired,
   stepsSize: PropTypes.number.isRequired,
   isLoaded: PropTypes.bool.isRequired,
-  data: PropTypes.shape({}).isRequired,
+  data: PropTypes.shape({}),
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   onWizardComplete: PropTypes.func.isRequired,
   onWizardLoad: PropTypes.func.isRequired
+};
+
+WizardFormComponent.defaultProps = {
+  data: null
 };

@@ -21,6 +21,7 @@ export const goToStep = step => ({
   payload: step
 });
 
-export const formSubmit = () => ({
-  type: types.WIZARD_FORM_SUBMIT
+export const formSubmit = (data) => ({
+  type: types.WIZARD_FORM_SUBMIT,
+  payload: data
 });

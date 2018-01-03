@@ -3,27 +3,28 @@ import { initialState, wizardReducer } from './reducer';
 
 describe('REDUCER', () => {
   test(`${types.WIZARD_NEXT_STEP}`, () => {
-    const initialTestState = { ...initialState, currentStep: 0 };
+    const initialTestState = { ...initialState, currentStep: 0, stepsSize: 5 };
     const state = wizardReducer(initialTestState, { type: types.WIZARD_NEXT_STEP });
-    expect(state).toEqual({ ...initialState, currentStep: 1 });
+    expect(state).toEqual({ ...initialTestState, currentStep: 1 });
   });
 
   test(`${types.WIZARD_PREVIOUS_STEP}`, () => {
-    const initialTestState = { ...initialState, currentStep: 1 };
+    const initialTestState = { ...initialState, currentStep: 1, stepsSize: 5 };
     const state = wizardReducer(initialTestState, { type: types.WIZARD_PREVIOUS_STEP });
-    expect(state).toEqual({ ...initialState, currentStep: 0 });
+    expect(state).toEqual({ ...initialTestState, currentStep: 0 });
   });
 
   test(`${types.WIZARD_GO_TO_STEP}`, () => {
-    const initialTestState = { ...initialState, currentStep: 1 };
-    const state = wizardReducer(initialTestState, { type: types.WIZARD_GO_TO_STEP, payload: 5 });
-    expect(state).toEqual({ ...initialState, currentStep: 5 });
+    const initialTestState = { ...initialState, currentStep: 1, stepsSize: 5 };
+    const state = wizardReducer(initialTestState, { type: types.WIZARD_GO_TO_STEP, payload: 4 });
+    expect(state).toEqual({ ...initialTestState, currentStep: 4 });
   });
 
   test(`${types.WIZARD_FORM_SUBMIT}`, () => {
-    const initialTestState = { ...initialState, currentStep: 2 };
-    const state = wizardReducer(initialTestState, { type: types.WIZARD_FORM_SUBMIT });
-    expect(state).toEqual({ ...initialState, currentStep: 3 });
+    const initialTestState = { ...initialState, currentStep: 2, stepsSize: 5 };
+    const payload = { name: 'Frank' };
+    const state = wizardReducer(initialTestState, { type: types.WIZARD_FORM_SUBMIT, payload });
+    expect(state).toEqual({ ...initialTestState, currentStep: 3, data: payload });
   });
 
   test(`${types.WIZARD_LOAD}`, () => {
