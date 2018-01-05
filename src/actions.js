@@ -1,11 +1,8 @@
 import types from './types';
 
-export const wizardLoad = (stepsSize, formOptions) => ({
-  type: types.WIZARD_LOAD,
-  payload: {
-    stepsSize,
-    formOptions
-  }
+export const wizardStepsSizeSet = stepsSize => ({
+  type: types.WIZARD_STEPS_SIZE_SET,
+  payload: stepsSize
 });
 
 export const nextStep = () => ({
@@ -21,7 +18,12 @@ export const goToStep = step => ({
   payload: step
 });
 
-export const formSubmit = (data) => ({
+export const formOptionsSet = formOptions => ({
+  type: types.WIZARD_FORM_OPTIONS_SET,
+  payload: formOptions
+});
+
+export const formSubmit = data => ({
   type: types.WIZARD_FORM_SUBMIT,
   payload: data
 });

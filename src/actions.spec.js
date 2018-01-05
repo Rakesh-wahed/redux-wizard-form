@@ -27,8 +27,13 @@ describe('ACTIONS', () => {
     expect(action).toEqual({ type: types.WIZARD_FORM_SUBMIT, payload: { name: 'Frank' } });
   });
 
-  test(`${types.WIZARD_LOAD}`, () => {
-    const action = actions.wizardLoad(3, {});
-    expect(action).toEqual({ type: types.WIZARD_LOAD, payload: { stepsSize: 3, formOptions: {} } });
+  test(`${types.WIZARD_FORM_OPTIONS_SET}`, () => {
+    const action = actions.formOptionsSet({ name: 'formTest' });
+    expect(action).toEqual({ type: types.WIZARD_FORM_OPTIONS_SET, payload: { name: 'formTest' } });
+  });
+
+  test(`${types.WIZARD_STEPS_SIZE_SET}`, () => {
+    const action = actions.wizardStepsSizeSet(6);
+    expect(action).toEqual({ type: types.WIZARD_STEPS_SIZE_SET, payload: 6 });
   });
 });

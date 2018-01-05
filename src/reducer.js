@@ -16,21 +16,13 @@ function getValidStep(prevStep, nextStep, stepSize) {
   return nextStep >= 0 && nextStep <= stepSize - 1 ? nextStep : prevStep;
 }
 
-function isFinalStep(nextStep, stepSize) {
-  return nextStep === stepSize;
-}
-
 // REDUCER
 export const wizardReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.WIZARD_LOAD:
-      return {
-        ...state,
-        currentStep: 0,
-        stepsSize: action.payload.stepsSize,
-        formOptions: { ...state.formOptions, ...action.payload.formOptions },
-        isLoaded: true
-      };
+    case types.WIZARD_FORM_OPTIONS_SET:
+      return { ...state, formOptions: action.payload, isLoaded: true };
+    case types.WIZARD_STEPS_SIZE_SET:
+      return { ...state, stepsSize: action.payload };
     case types.WIZARD_NEXT_STEP:
       return { ...state, currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize) };
     case types.WIZARD_PREVIOUS_STEP:
@@ -41,7 +33,7 @@ export const wizardReducer = (state = initialState, action) => {
       return {
         ...state,
         currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize),
-        data: isFinalStep(state.currentStep + 1, state.stepsSize) ? action.payload : null
+        data: action.payload
       };
     default:
       return state;
@@ -50,7 +42,8 @@ export const wizardReducer = (state = initialState, action) => {
 
 // SELECTORS
 export const getFormOptions = state => state.wizard.formOptions;
-export const getIsLoaded = state => state.wizard.isLoaded;
 export const getData = state => state.wizard.data;
 export const getCurrentStep = state => state.wizard.currentStep;
 export const getStepsSize = state => state.wizard.stepsSize;
+export const isFinalStep = state => state.wizard.currentStep === state.wizard.stepsSize - 1;
+export const isLoaded = state => state.wizard.isLoaded;
