@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.form`
-  display: inline-block;
+  display: flex;
+  justify-content: center;
   width: 100%;
 `;

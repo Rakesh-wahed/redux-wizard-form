@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
-import { Wrapper } from './WizardStepStyles';
+import { Wrapper } from './styles';
 
 export class WizardStepComponent extends Component {
   constructor(props) {
@@ -18,12 +18,11 @@ export class WizardStepComponent extends Component {
 
   render() {
     const { WizardStepForm } = this;
-    return WizardStepForm && <WizardStepForm />;
+    return WizardStepForm && <WizardStepForm step />;
   }
 }
 
 WizardStepComponent.propTypes = {
-  component: PropTypes.func.isRequired,
   formOptions: PropTypes.shape({
     form: PropTypes.string.isRequired,
     onChange: PropTypes.func,
@@ -31,5 +30,6 @@ WizardStepComponent.propTypes = {
     onSubmitFail: PropTypes.func,
     onSubmitSuccess: PropTypes.func
   }).isRequired,
+  component: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired
 };
