@@ -5,6 +5,11 @@ export const wizardStepsSizeSet = stepsSize => ({
   payload: stepsSize
 });
 
+export const wizardStepNameAdd = stepName => ({
+  type: types.WIZARD_STEP_NAME_ADD,
+  payload: stepName
+});
+
 export const nextStep = () => ({
   type: types.WIZARD_NEXT_STEP
 });

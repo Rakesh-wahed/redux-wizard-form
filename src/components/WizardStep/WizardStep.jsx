@@ -6,7 +6,7 @@ import { Wrapper } from './styles';
 export class WizardStepComponent extends Component {
   constructor(props) {
     super(props);
-    const { formOptions, component, onSubmit } = props;
+    const { formOptions, component, onSubmit, name, addStepName } = props;
     const InnerComponent = component;
 
     this.WizardStepForm = reduxForm(formOptions)(formProps => (
@@ -14,8 +14,9 @@ export class WizardStepComponent extends Component {
         <InnerComponent {...formProps} />
       </Wrapper>
     ));
-  }
 
+    addStepName(name);
+  }
   render() {
     const { WizardStepForm } = this;
     return WizardStepForm && <WizardStepForm step />;
@@ -23,6 +24,7 @@ export class WizardStepComponent extends Component {
 }
 
 WizardStepComponent.propTypes = {
+  name: PropTypes.string,
   formOptions: PropTypes.shape({
     form: PropTypes.string.isRequired,
     onChange: PropTypes.func,
@@ -31,5 +33,10 @@ WizardStepComponent.propTypes = {
     onSubmitSuccess: PropTypes.func
   }).isRequired,
   component: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  addStepName: PropTypes.func.isRequired
+};
+
+WizardStepComponent.defaultProps = {
+  name: 'Step'
 };

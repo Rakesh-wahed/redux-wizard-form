@@ -4,10 +4,10 @@ import { Wrapper } from './styles';
 
 export class WizardStepsComponent extends Component {
   componentDidMount() {
-    const { children, onWizardStepsSet } = this.props;
+    const { children, setWizardStepsSize } = this.props;
     const childrenSize = Array.isArray(children) ? children.length : 1;
 
-    onWizardStepsSet(childrenSize);
+    setWizardStepsSize(childrenSize);
   }
 
   render() {
@@ -28,5 +28,5 @@ export class WizardStepsComponent extends Component {
 WizardStepsComponent.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   currentStep: PropTypes.number.isRequired,
-  onWizardStepsSet: PropTypes.func.isRequired
+  setWizardStepsSize: PropTypes.func.isRequired
 };

@@ -27014,6 +27014,7 @@ var createValues$1 = function createValues(_ref) {
 createValues$1(structure);
 
 var types = {
+  WIZARD_STEP_NAME_ADD: 'WIZARD_STEP_NAME_ADD',
   WIZARD_NEXT_STEP: 'WIZARD_NEXT_STEP',
   WIZARD_PREVIOUS_STEP: 'WIZARD_PREVIOUS_STEP',
   WIZARD_GO_TO_STEP: 'WIZARD_GO_TO_STEP',
@@ -27118,8 +27119,27 @@ var taggedTemplateLiteral = function (strings, raw) {
   }));
 };
 
+
+
+
+
+
+
+
+
+var toConsumableArray = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  } else {
+    return Array.from(arr);
+  }
+};
+
 var initialState = {
   stepsSize: 0,
+  stepsNames: [],
   formOptions: {
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true
@@ -27144,6 +27164,8 @@ var wizardReducer = function wizardReducer() {
       return _extends$19({}, state, { formOptions: action.payload, isLoaded: true });
     case types.WIZARD_STEPS_SIZE_SET:
       return _extends$19({}, state, { stepsSize: action.payload });
+    case types.WIZARD_STEP_NAME_ADD:
+      return _extends$19({}, state, { stepsNames: [].concat(toConsumableArray(state.stepsNames), [action.payload]) });
     case types.WIZARD_NEXT_STEP:
       return _extends$19({}, state, { currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize) });
     case types.WIZARD_PREVIOUS_STEP:
@@ -30939,6 +30961,13 @@ var wizardStepsSizeSet = function wizardStepsSizeSet(stepsSize) {
   };
 };
 
+var wizardStepNameAdd = function wizardStepNameAdd(stepName) {
+  return {
+    type: types.WIZARD_STEP_NAME_ADD,
+    payload: stepName
+  };
+};
+
 
 
 
@@ -30987,7 +31016,9 @@ var WizardStepComponent = function (_Component) {
 
     var formOptions = props.formOptions,
         component = props.component,
-        onSubmit = props.onSubmit;
+        onSubmit = props.onSubmit,
+        name = props.name,
+        addStepName = props.addStepName;
 
     var InnerComponent = component;
 
@@ -30998,6 +31029,8 @@ var WizardStepComponent = function (_Component) {
         react.createElement(InnerComponent, formProps)
       );
     });
+
+    addStepName(name);
     return _this;
   }
 
@@ -31013,6 +31046,7 @@ var WizardStepComponent = function (_Component) {
 }(react_2);
 
 WizardStepComponent.propTypes = {
+  name: propTypes.string,
   formOptions: propTypes.shape({
     form: propTypes.string.isRequired,
     onChange: propTypes.func,
@@ -31021,7 +31055,12 @@ WizardStepComponent.propTypes = {
     onSubmitSuccess: propTypes.func
   }).isRequired,
   component: propTypes.func.isRequired,
-  onSubmit: propTypes.func.isRequired
+  onSubmit: propTypes.func.isRequired,
+  addStepName: propTypes.func.isRequired
+};
+
+WizardStepComponent.defaultProps = {
+  name: 'Step'
 };
 
 var WizardStep = connect(function (state) {
@@ -31030,6 +31069,9 @@ var WizardStep = connect(function (state) {
   };
 }, function (dispatch) {
   return {
+    addStepName: function addStepName(stepName) {
+      return dispatch(wizardStepNameAdd(stepName));
+    },
     onSubmit: function onSubmit(data) {
       return dispatch(formSubmit(data));
     }
@@ -31057,11 +31099,11 @@ var WizardStepsComponent = function (_Component) {
     value: function componentDidMount() {
       var _props = this.props,
           children = _props.children,
-          onWizardStepsSet = _props.onWizardStepsSet;
+          setWizardStepsSize = _props.setWizardStepsSize;
 
       var childrenSize = Array.isArray(children) ? children.length : 1;
 
-      onWizardStepsSet(childrenSize);
+      setWizardStepsSize(childrenSize);
     }
   }, {
     key: 'render',
@@ -31090,7 +31132,7 @@ var WizardStepsComponent = function (_Component) {
 WizardStepsComponent.propTypes = {
   children: propTypes.oneOfType([propTypes.arrayOf(propTypes.node), propTypes.node]).isRequired,
   currentStep: propTypes.number.isRequired,
-  onWizardStepsSet: propTypes.func.isRequired
+  setWizardStepsSize: propTypes.func.isRequired
 };
 
 var WizardSteps = connect(function (state) {
@@ -31099,7 +31141,7 @@ var WizardSteps = connect(function (state) {
   };
 }, function (dispatch) {
   return {
-    onWizardStepsSet: function onWizardStepsSet(stepsSize) {
+    setWizardStepsSize: function setWizardStepsSize(stepsSize) {
       return dispatch(wizardStepsSizeSet(stepsSize));
     }
   };
@@ -31234,9 +31276,9 @@ document.addEventListener('DOMContentLoaded', function () {
         react_4(
           WizardSteps,
           null,
-          react_4(WizardStep, { component: FormStep1 }),
-          react_4(WizardStep, { component: FormStep2 }),
-          react_4(WizardStep, { component: FormStep3 })
+          react_4(WizardStep, { component: FormStep1, name: 'Step 1' }),
+          react_4(WizardStep, { component: FormStep2, name: 'Step 2' }),
+          react_4(WizardStep, { component: FormStep3, name: 'Step 3' })
         )
       )
     )

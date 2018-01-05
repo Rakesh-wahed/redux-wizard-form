@@ -36,4 +36,9 @@ describe('ACTIONS', () => {
     const action = actions.wizardStepsSizeSet(6);
     expect(action).toEqual({ type: types.WIZARD_STEPS_SIZE_SET, payload: 6 });
   });
+
+  test(`${types.WIZARD_STEP_NAME_ADD}`, () => {
+    const action = actions.wizardStepNameAdd('step');
+    expect(action).toEqual({ type: types.WIZARD_STEP_NAME_ADD, payload: 'step' });
+  });
 });

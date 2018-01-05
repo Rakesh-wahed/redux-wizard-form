@@ -40,4 +40,11 @@ describe('REDUCER', () => {
     const state = wizardReducer(initialTestState, { type: types.WIZARD_STEPS_SIZE_SET, payload });
     expect(state).toEqual({ ...state, stepsSize: payload });
   });
+
+  test(`${types.WIZARD_STEP_NAME_ADD}`, () => {
+    const initialTestState = { ...initialState };
+    const payload = 'test';
+    const state = wizardReducer(initialTestState, { type: types.WIZARD_STEP_NAME_ADD, payload });
+    expect(state).toEqual({ ...state, stepsNames: ['test'] });
+  });
 });

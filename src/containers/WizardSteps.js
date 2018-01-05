@@ -8,6 +8,6 @@ export const WizardSteps = connect(
     currentStep: getCurrentStep(state)
   }),
   dispatch => ({
-    onWizardStepsSet: stepsSize => dispatch(wizardStepsSizeSet(stepsSize))
+    setWizardStepsSize: stepsSize => dispatch(wizardStepsSizeSet(stepsSize))
   })
 )(WizardStepsComponent);
