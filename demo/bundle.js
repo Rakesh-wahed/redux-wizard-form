@@ -27018,30 +27018,8 @@ var types = {
   WIZARD_PREVIOUS_STEP: 'WIZARD_PREVIOUS_STEP',
   WIZARD_GO_TO_STEP: 'WIZARD_GO_TO_STEP',
   WIZARD_FORM_SUBMIT: 'WIZARD_FORM_SUBMIT',
-  WIZARD_LOAD: 'WIZARD_LOAD'
-};
-
-var wizardLoad = function wizardLoad(stepsSize, formOptions) {
-  return {
-    type: types.WIZARD_LOAD,
-    payload: {
-      stepsSize: stepsSize,
-      formOptions: formOptions
-    }
-  };
-};
-
-
-
-
-
-
-
-var formSubmit = function formSubmit(data) {
-  return {
-    type: types.WIZARD_FORM_SUBMIT,
-    payload: data
-  };
+  WIZARD_STEPS_SIZE_SET: 'WIZARD_STEPS_SIZE_SET',
+  WIZARD_FORM_OPTIONS_SET: 'WIZARD_FORM_OPTIONS_SET'
 };
 
 var classCallCheck = function (instance, Constructor) {
@@ -27147,40 +27125,44 @@ var initialState = {
     forceUnregisterOnUnmount: true
   },
   currentStep: 0,
-  data: {},
+  data: null,
   isLoaded: false
 };
 
+// UTILS
+function getValidStep(prevStep, nextStep, stepSize) {
+  return nextStep >= 0 && nextStep <= stepSize - 1 ? nextStep : prevStep;
+}
+
+// REDUCER
 var wizardReducer = function wizardReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
   switch (action.type) {
-    case types.WIZARD_LOAD:
-      return _extends$19({}, state, {
-        currentStep: 0,
-        stepsSize: action.payload.stepsSize,
-        formOptions: _extends$19({}, state.formOptions, action.payload.formOptions),
-        isLoaded: true
-      });
+    case types.WIZARD_FORM_OPTIONS_SET:
+      return _extends$19({}, state, { formOptions: action.payload, isLoaded: true });
+    case types.WIZARD_STEPS_SIZE_SET:
+      return _extends$19({}, state, { stepsSize: action.payload });
     case types.WIZARD_NEXT_STEP:
-      return _extends$19({}, state, { currentStep: state.currentStep + 1 });
+      return _extends$19({}, state, { currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize) });
     case types.WIZARD_PREVIOUS_STEP:
-      return _extends$19({}, state, { currentStep: state.currentStep - 1 });
+      return _extends$19({}, state, { currentStep: getValidStep(state.currentStep, state.currentStep - 1, state.stepsSize) });
     case types.WIZARD_GO_TO_STEP:
-      return _extends$19({}, state, { currentStep: action.payload });
+      return _extends$19({}, state, { currentStep: getValidStep(state.currentStep, action.payload, state.stepsSize) });
     case types.WIZARD_FORM_SUBMIT:
-      return _extends$19({}, state, { currentStep: state.currentStep + 1, data: action.payload });
+      return _extends$19({}, state, {
+        currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize),
+        data: action.payload
+      });
     default:
       return state;
   }
 };
 
+// SELECTORS
 var getFormOptions = function getFormOptions(state) {
   return state.wizard.formOptions;
-};
-var getIsLoaded = function getIsLoaded(state) {
-  return state.wizard.isLoaded;
 };
 var getData = function getData(state) {
   return state.wizard.data;
@@ -27190,6 +27172,12 @@ var getCurrentStep = function getCurrentStep(state) {
 };
 var getStepsSize = function getStepsSize(state) {
   return state.wizard.stepsSize;
+};
+var isFinalStep = function isFinalStep(state) {
+  return state.wizard.currentStep === state.wizard.stepsSize - 1;
+};
+var isLoaded = function isLoaded(state) {
+  return state.wizard.isLoaded;
 };
 
 /*!
@@ -30886,35 +30874,38 @@ var WizardFormComponent = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _props = this.props,
-          reduxFormOptions = _props.reduxFormOptions,
-          children = _props.children,
-          onWizardLoad = _props.onWizardLoad;
+          onWizardOptionsLoad = _props.onWizardOptionsLoad,
+          reduxFormOptions = _props.reduxFormOptions;
 
-      var childrenSize = Array.isArray(children) ? children.length : 1;
-
-      onWizardLoad(childrenSize, reduxFormOptions);
+      onWizardOptionsLoad(reduxFormOptions);
     }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      var onWizardComplete = this.props.onWizardComplete;
+      var _props2 = this.props,
+          isFinalStep = _props2.isFinalStep,
+          onWizardComplete = _props2.onWizardComplete;
 
-
-      if (nextProps.currentStep === nextProps.stepsSize) {
+      if (nextProps.data && isFinalStep) {
         onWizardComplete(nextProps.data);
       }
     }
   }, {
     key: 'render',
     value: function render() {
-      var _props2 = this.props,
-          children = _props2.children,
-          isLoaded = _props2.isLoaded;
+      var _props3 = this.props,
+          children = _props3.children,
+          isLoaded = _props3.isLoaded;
+
+
+      if (!isLoaded) {
+        return null;
+      }
 
       return react.createElement(
         Wrapper,
         null,
-        isLoaded ? children : null
+        children
       );
     }
   }]);
@@ -30922,6 +30913,7 @@ var WizardFormComponent = function (_Component) {
 }(react_2);
 
 WizardFormComponent.propTypes = {
+  data: propTypes.shape({}),
   reduxFormOptions: propTypes.shape({
     form: propTypes.string.isRequired,
     onChange: propTypes.func,
@@ -30929,29 +30921,61 @@ WizardFormComponent.propTypes = {
     onSubmitFail: propTypes.func,
     onSubmitSuccess: propTypes.func
   }).isRequired,
-  currentStep: propTypes.number.isRequired,
-  stepsSize: propTypes.number.isRequired,
   isLoaded: propTypes.bool.isRequired,
-  data: propTypes.shape({}).isRequired,
+  isFinalStep: propTypes.bool.isRequired,
   children: propTypes.oneOfType([propTypes.arrayOf(propTypes.node), propTypes.node]).isRequired,
-  onWizardComplete: propTypes.func.isRequired,
-  onWizardLoad: propTypes.func.isRequired
+  onWizardOptionsLoad: propTypes.func.isRequired,
+  onWizardComplete: propTypes.func.isRequired
+};
+
+WizardFormComponent.defaultProps = {
+  data: null
+};
+
+var wizardStepsSizeSet = function wizardStepsSizeSet(stepsSize) {
+  return {
+    type: types.WIZARD_STEPS_SIZE_SET,
+    payload: stepsSize
+  };
+};
+
+
+
+
+
+
+
+var formOptionsSet = function formOptionsSet(formOptions) {
+  return {
+    type: types.WIZARD_FORM_OPTIONS_SET,
+    payload: formOptions
+  };
+};
+
+var formSubmit = function formSubmit(data) {
+  return {
+    type: types.WIZARD_FORM_SUBMIT,
+    payload: data
+  };
 };
 
 var WizardForm = connect(function (state) {
   return {
-    isLoaded: getIsLoaded(state),
     data: getData(state),
-    currentStep: getCurrentStep(state),
-    stepsSize: getStepsSize(state)
+    isLoaded: isLoaded(state),
+    isFinalStep: isFinalStep(state)
   };
 }, function (dispatch) {
   return {
-    onWizardLoad: function onWizardLoad(stepsSize, formOptions) {
-      return dispatch(wizardLoad(stepsSize, formOptions));
+    onWizardOptionsLoad: function onWizardOptionsLoad(formOptions) {
+      return dispatch(formOptionsSet(formOptions));
     }
   };
 })(WizardFormComponent);
+
+var _templateObject$1 = taggedTemplateLiteral(['\n  display: flex;\n  justify-content: center;\n  width: 100%;\n'], ['\n  display: flex;\n  justify-content: center;\n  width: 100%;\n']);
+
+var Wrapper$1 = styled.form(_templateObject$1);
 
 var WizardStepComponent = function (_Component) {
   inherits(WizardStepComponent, _Component);
@@ -30969,7 +30993,7 @@ var WizardStepComponent = function (_Component) {
 
     _this.WizardStepForm = reduxForm(formOptions)(function (formProps) {
       return react.createElement(
-        'form',
+        Wrapper$1,
         { onSubmit: formProps.handleSubmit(onSubmit) },
         react.createElement(InnerComponent, formProps)
       );
@@ -30982,14 +31006,13 @@ var WizardStepComponent = function (_Component) {
     value: function render() {
       var WizardStepForm = this.WizardStepForm;
 
-      return WizardStepForm && react.createElement(WizardStepForm, null);
+      return WizardStepForm && react.createElement(WizardStepForm, { step: true });
     }
   }]);
   return WizardStepComponent;
 }(react_2);
 
 WizardStepComponent.propTypes = {
-  component: propTypes.func.isRequired,
   formOptions: propTypes.shape({
     form: propTypes.string.isRequired,
     onChange: propTypes.func,
@@ -30997,6 +31020,7 @@ WizardStepComponent.propTypes = {
     onSubmitFail: propTypes.func,
     onSubmitSuccess: propTypes.func
   }).isRequired,
+  component: propTypes.func.isRequired,
   onSubmit: propTypes.func.isRequired
 };
 
@@ -31012,11 +31036,112 @@ var WizardStep = connect(function (state) {
   };
 })(WizardStepComponent);
 
-var _templateObject$1 = taggedTemplateLiteral(['\n  width: 100%;\n  height: 100%;\n'], ['\n  width: 100%;\n  height: 100%;\n']);
+var _templateObject$2 = taggedTemplateLiteral(['\n  display: inline-block;\n  opacity: ', ';\n  transform: translateX(', '%);\n  transition: transform 600ms cubic-bezier(0, 0.89, 0.69, 0.98), opacity 500ms cubic-bezier(0.45, 0.07, 0.83, 0.67);\n  width: 100%;\n'], ['\n  display: inline-block;\n  opacity: ', ';\n  transform: translateX(', '%);\n  transition: transform 600ms cubic-bezier(0, 0.89, 0.69, 0.98), opacity 500ms cubic-bezier(0.45, 0.07, 0.83, 0.67);\n  width: 100%;\n']);
+
+var Wrapper$2 = styled.div(_templateObject$2, function (props) {
+  return props.isCurrentStep ? 1 : 0;
+}, function (props) {
+  return props.currentStep * -100;
+});
+
+var WizardStepsComponent = function (_Component) {
+  inherits(WizardStepsComponent, _Component);
+
+  function WizardStepsComponent() {
+    classCallCheck(this, WizardStepsComponent);
+    return possibleConstructorReturn(this, (WizardStepsComponent.__proto__ || Object.getPrototypeOf(WizardStepsComponent)).apply(this, arguments));
+  }
+
+  createClass(WizardStepsComponent, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props = this.props,
+          children = _props.children,
+          onWizardStepsSet = _props.onWizardStepsSet;
+
+      var childrenSize = Array.isArray(children) ? children.length : 1;
+
+      onWizardStepsSet(childrenSize);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          children = _props2.children,
+          currentStep = _props2.currentStep;
+
+
+      if (Array.isArray(children)) {
+        return children.map(function (child, i) {
+          return react.createElement(
+            Wrapper$2,
+            { key: i, currentStep: currentStep, isCurrentStep: currentStep === i },
+            child
+          );
+        });
+      }
+
+      return children;
+    }
+  }]);
+  return WizardStepsComponent;
+}(react_2);
+
+WizardStepsComponent.propTypes = {
+  children: propTypes.oneOfType([propTypes.arrayOf(propTypes.node), propTypes.node]).isRequired,
+  currentStep: propTypes.number.isRequired,
+  onWizardStepsSet: propTypes.func.isRequired
+};
+
+var WizardSteps = connect(function (state) {
+  return {
+    currentStep: getCurrentStep(state)
+  };
+}, function (dispatch) {
+  return {
+    onWizardStepsSet: function onWizardStepsSet(stepsSize) {
+      return dispatch(wizardStepsSizeSet(stepsSize));
+    }
+  };
+})(WizardStepsComponent);
+
+var _templateObject$3 = taggedTemplateLiteral(['\n  display: flex;\n  justify-content: space-arround;\n  width: 100%;\n'], ['\n  display: flex;\n  justify-content: space-arround;\n  width: 100%;\n']);
+
+var Wrapper$3 = styled.form(_templateObject$3);
+
+var WizardNavigationComponent = function WizardNavigationComponent(_ref) {
+  var currentStep = _ref.currentStep,
+      stepsSize = _ref.stepsSize;
+  return react.createElement(
+    Wrapper$3,
+    null,
+    react.createElement(
+      'div',
+      null,
+      ' ',
+      currentStep + 1,
+      ' '
+    )
+  );
+};
+
+WizardNavigationComponent.propTypes = {
+  currentStep: propTypes.number.isRequired,
+  stepsSize: propTypes.number.isRequired
+};
+
+var WizardNavigation = connect(function (state) {
+  return {
+    currentStep: getCurrentStep(state),
+    stepsSize: getStepsSize(state)
+  };
+})(WizardNavigationComponent);
+
+var _templateObject$4 = taggedTemplateLiteral(['\n  width: 100%;\n  height: 100%;\n'], ['\n  width: 100%;\n  height: 100%;\n']);
 var _templateObject2 = taggedTemplateLiteral(['\n  width: 50%;\n  margin: auto;\n'], ['\n  width: 50%;\n  margin: auto;\n']);
 var _templateObject3 = taggedTemplateLiteral(['\n  border: none;\n  display: flex;\n'], ['\n  border: none;\n  display: flex;\n']);
 
-var PageWrapper = styled.div(_templateObject$1);
+var PageWrapper = styled.div(_templateObject$4);
 
 var WizardFormWrapper = styled.div(_templateObject2);
 
@@ -31084,7 +31209,7 @@ var reducers = {
   wizard: wizardReducer
 };
 var reducer$$1 = combineReducers(reducers);
-var store = createStore(reducer$$1);
+var store = createStore(reducer$$1, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 document.addEventListener('DOMContentLoaded', function () {
   function handleWizardComplete(data) {
@@ -31105,9 +31230,14 @@ document.addEventListener('DOMContentLoaded', function () {
       react_4(
         WizardForm,
         { reduxFormOptions: { form: 'wizard' }, onWizardComplete: handleWizardComplete },
-        react_4(WizardStep, { component: FormStep1 }),
-        react_4(WizardStep, { component: FormStep2 }),
-        react_4(WizardStep, { component: FormStep3 })
+        react_4(WizardNavigation, null),
+        react_4(
+          WizardSteps,
+          null,
+          react_4(WizardStep, { component: FormStep1 }),
+          react_4(WizardStep, { component: FormStep2 }),
+          react_4(WizardStep, { component: FormStep3 })
+        )
       )
     )
   ), document.getElementById('app'));

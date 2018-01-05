@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { Provider } from 'react-redux';
-import { WizardForm, WizardStep, wizardReducer } from '../index';
+import { WizardForm, WizardStep, WizardSteps, WizardNavigation, wizardReducer } from '../index';
 import { FormStep1, FormStep2, FormStep3 } from './fixtures';
 
 const reducers = {
@@ -11,7 +11,7 @@ const reducers = {
   wizard: wizardReducer
 };
 const reducer = combineReducers(reducers);
-const store = createStore(reducer);
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 document.addEventListener('DOMContentLoaded', () => {
   function handleWizardComplete(data) {
@@ -24,9 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <h1> Redux Form Wizard</h1>
 
         <WizardForm reduxFormOptions={{ form: 'wizard' }} onWizardComplete={handleWizardComplete}>
-          <WizardStep component={FormStep1} />
-          <WizardStep component={FormStep2} />
-          <WizardStep component={FormStep3} />
+          <WizardNavigation />
+          <WizardSteps>
+            <WizardStep component={FormStep1} />
+            <WizardStep component={FormStep2} />
+            <WizardStep component={FormStep3} />
+          </WizardSteps>
         </WizardForm>
       </div>
     </Provider>,

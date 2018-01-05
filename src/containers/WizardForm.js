@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
-import { wizardLoad } from '../actions';
-import { getIsLoaded, getCurrentStep, getStepsSize, getData } from '../reducer';
+import { getData, isFinalStep, isLoaded } from '../reducer';
 import { WizardFormComponent } from '../components/WizardForm/WizardForm.jsx';
+import { formOptionsSet } from '../actions';
 
 export const WizardForm = connect(
   state => ({
-    isLoaded: getIsLoaded(state),
     data: getData(state),
-    currentStep: getCurrentStep(state),
-    stepsSize: getStepsSize(state)
+    isLoaded: isLoaded(state),
+    isFinalStep: isFinalStep(state)
   }),
   dispatch => ({
-    onWizardLoad: (stepsSize, formOptions) => dispatch(wizardLoad(stepsSize, formOptions))
+    onWizardOptionsLoad: formOptions => dispatch(formOptionsSet(formOptions))
   })
 )(WizardFormComponent);
