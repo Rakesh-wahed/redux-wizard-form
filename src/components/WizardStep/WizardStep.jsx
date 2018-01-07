@@ -19,7 +19,7 @@ export class WizardStepComponent extends Component {
   }
   render() {
     const { WizardStepForm } = this;
-    return WizardStepForm && <WizardStepForm step />;
+    return WizardStepForm && <WizardStepForm />;
   }
 }
 

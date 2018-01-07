@@ -26,9 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
         <WizardForm reduxFormOptions={{ form: 'wizard' }} onWizardComplete={handleWizardComplete}>
           <WizardNavigation />
           <WizardSteps>
-            <WizardStep component={FormStep1} name="Step 1" />
-            <WizardStep component={FormStep2} name="Step 2" />
-            <WizardStep component={FormStep3} name="Step 3" />
+            <WizardStep component={FormStep1} name="Form Step 1" />
+            <WizardStep component={FormStep2} name="Form Step 2" />
+            <WizardStep component={FormStep3} name="Form Step 3" />
+            <WizardStep component={FormStep3} name="Form Step 4" />
           </WizardSteps>
         </WizardForm>
       </div>

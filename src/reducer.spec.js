@@ -15,9 +15,9 @@ describe('REDUCER', () => {
   });
 
   test(`${types.WIZARD_GO_TO_STEP}`, () => {
-    const initialTestState = { ...initialState, currentStep: 1, stepsSize: 5 };
-    const state = wizardReducer(initialTestState, { type: types.WIZARD_GO_TO_STEP, payload: 4 });
-    expect(state).toEqual({ ...state, currentStep: 4 });
+    const initialTestState = { ...initialState, currentStep: 4, stepsSize: 5 };
+    const state = wizardReducer(initialTestState, { type: types.WIZARD_GO_TO_STEP, payload: 0 });
+    expect(state).toEqual({ ...state, currentStep: 0 });
   });
 
   test(`${types.WIZARD_FORM_SUBMIT}`, () => {

@@ -48,5 +48,6 @@ export const getFormOptions = state => state.wizard.formOptions;
 export const getData = state => state.wizard.data;
 export const getCurrentStep = state => state.wizard.currentStep;
 export const getStepsSize = state => state.wizard.stepsSize;
+export const getStepsNames = state => state.wizard.stepsNames;
 export const isFinalStep = state => state.wizard.currentStep === state.wizard.stepsSize - 1;
 export const isLoaded = state => state.wizard.isLoaded;

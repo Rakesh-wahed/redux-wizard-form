@@ -19,7 +19,7 @@ export const previousStep = () => ({
 });
 
 export const goToStep = step => ({
-  type: types.WIZARD_PREVIOUS_STEP,
+  type: types.WIZARD_GO_TO_STEP,
   payload: step
 });
 
