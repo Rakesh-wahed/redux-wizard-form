@@ -21,7 +21,7 @@ function getValidStep(prevStep, nextStep, stepSize) {
 export const wizardReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.WIZARD_FORM_OPTIONS_SET:
-      return { ...state, formOptions: action.payload, isLoaded: true };
+      return { ...state, formOptions: { ...state.formOptions, ...action.payload }, isLoaded: true };
     case types.WIZARD_STEPS_SIZE_SET:
       return { ...state, stepsSize: action.payload };
     case types.WIZARD_STEP_NAME_ADD:

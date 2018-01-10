@@ -32,3 +32,11 @@ export const formSubmit = data => ({
   type: types.WIZARD_FORM_SUBMIT,
   payload: data
 });
+
+export const wizardComplete = () => ({
+  type: types.WIZARD_COMPLETE
+});
+
+export const wizardReset = () => ({
+  type: types.WIZARD_RESET
+});

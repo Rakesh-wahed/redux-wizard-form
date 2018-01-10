@@ -9,8 +9,9 @@ export class WizardFormComponent extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isFinalStep, onWizardComplete } = this.props;
-    if (nextProps.data && isFinalStep) {
+    const { onWizardComplete } = this.props;
+
+    if (nextProps.isFinalStep) {
       onWizardComplete(nextProps.data);
     }
   }

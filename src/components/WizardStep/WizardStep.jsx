@@ -19,12 +19,16 @@ export class WizardStepComponent extends Component {
   }
   render() {
     const { WizardStepForm } = this;
-    return WizardStepForm && <WizardStepForm />;
+    const { currentStep, step } = this.props;
+
+    return WizardStepForm && currentStep === step && <WizardStepForm />;
   }
 }
 
 WizardStepComponent.propTypes = {
   name: PropTypes.string,
+  currentStep: PropTypes.number.isRequired,
+  step: PropTypes.number.isRequired,
   formOptions: PropTypes.shape({
     form: PropTypes.string.isRequired,
     onChange: PropTypes.func,

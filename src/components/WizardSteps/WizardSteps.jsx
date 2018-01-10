@@ -11,14 +11,10 @@ export class WizardStepsComponent extends Component {
   }
 
   render() {
-    const { children, currentStep } = this.props;
+    const { children } = this.props;
 
     if (Array.isArray(children)) {
-      return children.map((child, i) => (
-        <Wrapper key={i} currentStep={currentStep} isCurrentStep={currentStep === i}>
-          {child}
-        </Wrapper>
-      ));
+      return children.map((child, i) => React.cloneElement(child, { step: i, key: i }));
     }
 
     return children;
@@ -27,6 +23,5 @@ export class WizardStepsComponent extends Component {
 
 WizardStepsComponent.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-  currentStep: PropTypes.number.isRequired,
   setWizardStepsSize: PropTypes.func.isRequired
 };

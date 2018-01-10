@@ -6,14 +6,9 @@ export const Wrapper = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-around;
-  margin: auto;
   margin-bottom: 20px;
   position: relative;
-  width: 50%;
-
-  @media (max-width: 600px) {
-    width: 100%;
-  }
+  width: 100%;
 `;
 
 export const ProgressBarWrapper = styled.div`

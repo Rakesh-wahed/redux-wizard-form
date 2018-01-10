@@ -31,7 +31,7 @@ describe('REDUCER', () => {
     const initialTestState = { ...initialState };
     const payload = { name: 'form' };
     const state = wizardReducer(initialTestState, { type: types.WIZARD_FORM_OPTIONS_SET, payload });
-    expect(state).toEqual({ ...state, formOptions: payload, isLoaded: true });
+    expect(state).toEqual({ ...state, formOptions: { ...state.formOptions, ...payload }, isLoaded: true });
   });
 
   test(`${types.WIZARD_STEPS_SIZE_SET}`, () => {

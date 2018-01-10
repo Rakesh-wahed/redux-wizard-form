@@ -14,12 +14,7 @@ describe('ACTIONS', () => {
 
   test(`${types.WIZARD_GO_TO_STEP}`, () => {
     const action = actions.goToStep(2);
-    expect(action).toEqual({ type: types.WIZARD_PREVIOUS_STEP, payload: 2 });
-  });
-
-  test(`${types.WIZARD_GO_TO_STEP}`, () => {
-    const action = actions.goToStep(2);
-    expect(action).toEqual({ type: types.WIZARD_PREVIOUS_STEP, payload: 2 });
+    expect(action).toEqual({ type: types.WIZARD_GO_TO_STEP, payload: 2 });
   });
 
   test(`${types.WIZARD_FORM_SUBMIT}`, () => {
