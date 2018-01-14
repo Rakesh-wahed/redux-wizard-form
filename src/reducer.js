@@ -9,7 +9,8 @@ export const initialState = {
   },
   currentStep: 0,
   data: null,
-  isLoaded: false
+  isLoaded: false,
+  isWizardComplete: false
 };
 
 // UTILS
@@ -32,12 +33,10 @@ export const wizardReducer = (state = initialState, action) => {
       return { ...state, currentStep: getValidStep(state.currentStep, state.currentStep - 1, state.stepsSize) };
     case types.WIZARD_GO_TO_STEP:
       return { ...state, currentStep: getValidStep(state.currentStep, action.payload, state.stepsSize) };
-    case types.WIZARD_FORM_SUBMIT:
-      return {
-        ...state,
-        currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize),
-        data: action.payload
-      };
+    case types.WIZARD_COMPLETE:
+      return { ...state, isWizardComplete: true, data: action.payload };
+    case types.WIZARD_RESET:
+      return initialState;
     default:
       return state;
   }
@@ -49,5 +48,5 @@ export const getData = state => state.wizard.data;
 export const getCurrentStep = state => state.wizard.currentStep;
 export const getStepsSize = state => state.wizard.stepsSize;
 export const getStepsNames = state => state.wizard.stepsNames;
-export const isFinalStep = state => state.wizard.currentStep === state.wizard.stepsSize - 1;
 export const isLoaded = state => state.wizard.isLoaded;
+export const isWizardComplete = state => state.wizard.isWizardComplete;

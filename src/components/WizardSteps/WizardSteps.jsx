@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Wrapper } from './styles';
 
 export class WizardStepsComponent extends Component {
-  componentDidMount() {
+  componentWillMount() {
     const { children, setWizardStepsSize } = this.props;
     const childrenSize = Array.isArray(children) ? children.length : 1;
 

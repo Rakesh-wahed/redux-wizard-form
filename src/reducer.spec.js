@@ -20,13 +20,6 @@ describe('REDUCER', () => {
     expect(state).toEqual({ ...state, currentStep: 0 });
   });
 
-  test(`${types.WIZARD_FORM_SUBMIT}`, () => {
-    const initialTestState = { ...initialState, currentStep: 2, stepsSize: 5 };
-    const payload = { name: 'Frank' };
-    const state = wizardReducer(initialTestState, { type: types.WIZARD_FORM_SUBMIT, payload });
-    expect(state).toEqual({ ...state, currentStep: 3, data: payload });
-  });
-
   test(`${types.WIZARD_FORM_OPTIONS_SET}`, () => {
     const initialTestState = { ...initialState };
     const payload = { name: 'form' };
@@ -46,5 +39,18 @@ describe('REDUCER', () => {
     const payload = 'test';
     const state = wizardReducer(initialTestState, { type: types.WIZARD_STEP_NAME_ADD, payload });
     expect(state).toEqual({ ...state, stepsNames: ['test'] });
+  });
+
+  test(`${types.WIZARD_COMPLETE}`, () => {
+    const initialTestState = { ...initialState };
+    const payload = { name: 'test' };
+    const state = wizardReducer(initialTestState, { type: types.WIZARD_COMPLETE, payload });
+    expect(state).toEqual({ ...state, isWizardComplete: true, data: payload });
+  });
+
+  test(`${types.WIZARD_RESET}`, () => {
+    const initialTestState = { isWizardComplete: true };
+    const state = wizardReducer(initialTestState, { type: types.WIZARD_RESET });
+    expect(state).toEqual(initialState);
   });
 });

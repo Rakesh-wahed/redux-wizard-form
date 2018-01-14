@@ -28,13 +28,9 @@ export const formOptionsSet = formOptions => ({
   payload: formOptions
 });
 
-export const formSubmit = data => ({
-  type: types.WIZARD_FORM_SUBMIT,
+export const wizardComplete = data => ({
+  type: types.WIZARD_COMPLETE,
   payload: data
-});
-
-export const wizardComplete = () => ({
-  type: types.WIZARD_COMPLETE
 });
 
 export const wizardReset = () => ({

@@ -1,15 +1,17 @@
 import { connect } from 'react-redux';
-import { formSubmit, wizardStepNameAdd } from '../actions';
-import { getFormOptions, getCurrentStep } from '../reducer';
+import { nextStep, wizardStepNameAdd, wizardComplete } from '../actions';
+import { getFormOptions, getCurrentStep, getStepsSize } from '../reducer';
 import { WizardStepComponent } from '../components/WizardStep/WizardStep.jsx';
 
 export const WizardStep = connect(
   state => ({
     formOptions: getFormOptions(state),
-    currentStep: getCurrentStep(state)
+    currentStep: getCurrentStep(state),
+    stepsSize: getStepsSize(state)
   }),
   dispatch => ({
     addStepName: stepName => dispatch(wizardStepNameAdd(stepName)),
-    onSubmit: data => dispatch(formSubmit(data))
+    onSubmit: () => dispatch(nextStep()),
+    onWizardComplete: data => dispatch(wizardComplete(data))
   })
 )(WizardStepComponent);

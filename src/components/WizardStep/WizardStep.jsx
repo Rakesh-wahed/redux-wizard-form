@@ -6,11 +6,11 @@ import { Wrapper } from './styles';
 export class WizardStepComponent extends Component {
   constructor(props) {
     super(props);
-    const { formOptions, component, onSubmit, name, addStepName } = props;
+    const { formOptions, component, onSubmit, name, addStepName, onWizardComplete, stepsSize, step } = props;
     const InnerComponent = component;
 
     this.WizardStepForm = reduxForm(formOptions)(formProps => (
-      <Wrapper onSubmit={formProps.handleSubmit(onSubmit)}>
+      <Wrapper onSubmit={formProps.handleSubmit(step === stepsSize - 1 ? onWizardComplete : onSubmit)}>
         <InnerComponent {...formProps} />
       </Wrapper>
     ));
@@ -29,6 +29,7 @@ WizardStepComponent.propTypes = {
   name: PropTypes.string,
   currentStep: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
+  stepsSize: PropTypes.number.isRequired,
   formOptions: PropTypes.shape({
     form: PropTypes.string.isRequired,
     onChange: PropTypes.func,
@@ -38,6 +39,7 @@ WizardStepComponent.propTypes = {
   }).isRequired,
   component: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onWizardComplete: PropTypes.func.isRequired,
   addStepName: PropTypes.func.isRequired
 };
 

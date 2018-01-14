@@ -3,7 +3,6 @@ import { Field } from 'redux-form';
 import { FieldsetWrapper } from '../styles';
 
 export const FormStep2 = props => {
-  console.log(props);
   return (
     <FieldsetWrapper>
       <Field

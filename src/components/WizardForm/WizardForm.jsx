@@ -11,9 +11,13 @@ export class WizardFormComponent extends Component {
   componentWillReceiveProps(nextProps) {
     const { onWizardComplete } = this.props;
 
-    if (nextProps.isFinalStep) {
+    if (nextProps.isWizardComplete) {
       onWizardComplete(nextProps.data);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.wizardReset();
   }
 
   render() {
@@ -28,7 +32,6 @@ export class WizardFormComponent extends Component {
 }
 
 WizardFormComponent.propTypes = {
-  data: PropTypes.shape({}),
   reduxFormOptions: PropTypes.shape({
     form: PropTypes.string.isRequired,
     onChange: PropTypes.func,
@@ -36,13 +39,11 @@ WizardFormComponent.propTypes = {
     onSubmitFail: PropTypes.func,
     onSubmitSuccess: PropTypes.func
   }).isRequired,
-  isLoaded: PropTypes.bool.isRequired,
-  isFinalStep: PropTypes.bool.isRequired,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  data: PropTypes.shape([]),
+  isWizardComplete: PropTypes.bool.isRequired,
+  isLoaded: PropTypes.bool.isRequired,
+  wizardReset: PropTypes.func.isRequired,
   onWizardOptionsLoad: PropTypes.func.isRequired,
   onWizardComplete: PropTypes.func.isRequired
-};
-
-WizardFormComponent.defaultProps = {
-  data: null
 };
