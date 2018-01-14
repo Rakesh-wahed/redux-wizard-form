@@ -3,13 +3,12 @@ import commonjs from 'rollup-plugin-commonjs';
 import globals from 'rollup-plugin-node-globals';
 import resolve from 'rollup-plugin-node-resolve';
 import replace from 'rollup-plugin-replace';
-import serve from 'rollup-plugin-serve';
 
 export default {
-  input: './src/demo/index.js',
+  input: './src/index.js',
   output: {
-    file: './demo/bundle.js',
-    format: 'iife'
+    file: './dist/bundle.js',
+    format: 'cjs'
   },
   exports: 'named',
   plugins: [
@@ -29,9 +28,9 @@ export default {
     replace({ 'process.env.NODE_ENV': JSON.stringify('development') }),
     resolve({
       browser: true,
+      extensions: ['.js', '.jsx'],
       main: true
-    }),
-    serve('demo')
+    })
   ],
   sourcemap: true
 };

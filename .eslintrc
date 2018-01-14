@@ -17,6 +17,7 @@
     "jest": true
   },
   "rules": {
-    "import/prefer-default-export": false
+    "import/prefer-default-export": false,
+    "react/no-array-index-key": "off"
   }
 }

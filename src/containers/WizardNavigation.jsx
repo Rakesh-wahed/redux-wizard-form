@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getCurrentStep, getStepsSize, getStepsNames } from '../reducer';
-import { WizardNavigationComponent } from '../components/WizardNavigation/WizardNavigation.jsx';
+import { WizardNavigationComponent } from '../components/WizardNavigation/WizardNavigation';
 import { goToStep } from '../actions';
 
 export const WizardNavigation = connect(

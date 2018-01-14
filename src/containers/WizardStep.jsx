@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { nextStep, wizardStepNameAdd, wizardComplete } from '../actions';
 import { getFormOptions, getCurrentStep, getStepsSize } from '../reducer';
-import { WizardStepComponent } from '../components/WizardStep/WizardStep.jsx';
+import { WizardStepComponent } from '../components/WizardStep/WizardStep';
 
 export const WizardStep = connect(
   state => ({
