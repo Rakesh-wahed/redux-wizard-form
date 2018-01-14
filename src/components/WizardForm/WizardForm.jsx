@@ -40,10 +40,14 @@ WizardFormComponent.propTypes = {
     onSubmitSuccess: PropTypes.func
   }).isRequired,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-  data: PropTypes.shape([]),
+  data: PropTypes.shape({}),
   isWizardComplete: PropTypes.bool.isRequired,
   isLoaded: PropTypes.bool.isRequired,
   wizardReset: PropTypes.func.isRequired,
   onWizardOptionsLoad: PropTypes.func.isRequired,
   onWizardComplete: PropTypes.func.isRequired
+};
+
+WizardFormComponent.defaultProps = {
+  data: {}
 };
