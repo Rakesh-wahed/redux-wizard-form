@@ -12,3 +12,5 @@ branches:
 cache:
   directories:
     "node_modules"
+after_success:
+  yarn test:report:coverage
