@@ -1,0 +1,12 @@
+language:
+  node_js
+install:
+  yarn
+script:
+  yarn validate
+branches:
+  only:
+    master
+cache:
+  directories:
+    - "node_modules"

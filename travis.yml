@@ -1,7 +1,0 @@
-install:
-  npm i
-script:
-  npm run validate
-branches:
-  only:
-    master
