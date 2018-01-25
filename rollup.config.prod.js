@@ -1,6 +1,7 @@
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve';
+import uglify from 'rollup-plugin-uglify';
 import packageJson from './package.json';
 
 export default {
@@ -30,7 +31,8 @@ export default {
       extensions: ['.js', '.jsx'],
       browser: true,
       main: true
-    })
+    }),
+    uglify()
   ],
   external: Object.keys(packageJson.dependencies)
 };
