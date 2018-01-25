@@ -1,2 +1,3 @@
 # redux-wizard-form
-Wizard form to implement in redux projects
+
+[![Build Status](https://img.shields.io/travis/frankPairs/redux-wizard-form.svg)](https://travis-ci.org/frankPairs/redux-wizard-form)
