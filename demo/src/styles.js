@@ -13,4 +13,5 @@ export const WizardFormWrapper = styled.div`
 export const FieldsetWrapper = styled.fieldset`
   border: none;
   display: flex;
+  height: 400px;
 `;

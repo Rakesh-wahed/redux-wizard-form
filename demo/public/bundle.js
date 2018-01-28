@@ -30572,7 +30572,11 @@ var WizardStepComponent = function (_Component) {
           step = _props.step;
 
 
-      return WizardStepForm && currentStep === step && react.createElement(WizardStepForm, null);
+      if (currentStep >= step) {
+        return react.createElement(WizardStepForm, null);
+      }
+
+      return null;
     }
   }]);
   return WizardStepComponent;
@@ -30620,6 +30624,14 @@ var WizardStep = connect(function (state) {
   };
 })(WizardStepComponent);
 
+var _templateObject$2 = taggedTemplateLiteral(['\n  display: inline-block;\n  opacity: ', ';\n  transform: translateX(', '%);\n  transition: transform 600ms cubic-bezier(0, 0.89, 0.69, 0.98), opacity 500ms cubic-bezier(0.45, 0.07, 0.83, 0.67);\n  width: 100%;\n'], ['\n  display: inline-block;\n  opacity: ', ';\n  transform: translateX(', '%);\n  transition: transform 600ms cubic-bezier(0, 0.89, 0.69, 0.98), opacity 500ms cubic-bezier(0.45, 0.07, 0.83, 0.67);\n  width: 100%;\n']);
+
+var Wrapper$2 = styled.div(_templateObject$2, function (props) {
+  return props.isCurrentStep ? 1 : 0;
+}, function (props) {
+  return props.currentStep * -100;
+});
+
 var WizardStepsComponent = function (_Component) {
   inherits(WizardStepsComponent, _Component);
 
@@ -30642,12 +30654,18 @@ var WizardStepsComponent = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var children = this.props.children;
+      var _props2 = this.props,
+          children = _props2.children,
+          currentStep = _props2.currentStep;
 
 
       if (Array.isArray(children)) {
         return children.map(function (child, i) {
-          return react.cloneElement(child, { step: i, key: i });
+          return react.createElement(
+            Wrapper$2,
+            { key: i, currentStep: currentStep, isCurrentStep: currentStep === i },
+            react.cloneElement(child, { step: i, key: i })
+          );
         });
       }
 
@@ -30658,11 +30676,16 @@ var WizardStepsComponent = function (_Component) {
 }(react_2);
 
 WizardStepsComponent.propTypes = {
+  currentStep: propTypes.number.isRequired,
   children: propTypes.oneOfType([propTypes.arrayOf(propTypes.node), propTypes.node]).isRequired,
   setWizardStepsSize: propTypes.func.isRequired
 };
 
-var WizardSteps = connect(null, function (dispatch) {
+var WizardSteps = connect(function (state) {
+  return {
+    currentStep: getCurrentStep(state)
+  };
+}, function (dispatch) {
   return {
     setWizardStepsSize: function setWizardStepsSize(stepsSize) {
       return dispatch(wizardStepsSizeSet(stepsSize));
@@ -30670,7 +30693,7 @@ var WizardSteps = connect(null, function (dispatch) {
   };
 })(WizardStepsComponent);
 
-var _templateObject$2 = taggedTemplateLiteral(['\n  align-items: center;\n  display: flex;\n  justify-content: space-around;\n  margin-bottom: 20px;\n  position: relative;\n  width: 100%;\n'], ['\n  align-items: center;\n  display: flex;\n  justify-content: space-around;\n  margin-bottom: 20px;\n  position: relative;\n  width: 100%;\n']);
+var _templateObject$3 = taggedTemplateLiteral(['\n  align-items: center;\n  display: flex;\n  justify-content: space-around;\n  margin-bottom: 20px;\n  position: relative;\n  width: 100%;\n'], ['\n  align-items: center;\n  display: flex;\n  justify-content: space-around;\n  margin-bottom: 20px;\n  position: relative;\n  width: 100%;\n']);
 var _templateObject2 = taggedTemplateLiteral(['\n  left: ', '%;\n  height: 3px;\n  top: 13px;\n  position: absolute;\n  width: ', '%;\n'], ['\n  left: ', '%;\n  height: 3px;\n  top: 13px;\n  position: absolute;\n  width: ', '%;\n']);
 var _templateObject3 = taggedTemplateLiteral(['\n  align-items: center;\n  background: transparent;\n  cursor: pointer;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  text-align: center;\n  width: 100%;\n\n  span {\n    font-size: 1rem;\n  }\n\n  .step-name {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 90%;\n  }\n'], ['\n  align-items: center;\n  background: transparent;\n  cursor: pointer;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  text-align: center;\n  width: 100%;\n\n  span {\n    font-size: 1rem;\n  }\n\n  .step-name {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 90%;\n  }\n']);
 var _templateObject4 = taggedTemplateLiteral(['\n  background: ', ';\n  border-radius: 10px;\n  height: 100%;\n  transition: width 600ms cubic-bezier(0, 0.89, 0.69, 0.98);\n  width: ', '%;\n'], ['\n  background: ', ';\n  border-radius: 10px;\n  height: 100%;\n  transition: width 600ms cubic-bezier(0, 0.89, 0.69, 0.98);\n  width: ', '%;\n']);
@@ -30678,7 +30701,7 @@ var _templateObject5 = taggedTemplateLiteral(['\n  background-color: ', ';\n  bo
 
 var barColor = '#00bcd4';
 
-var Wrapper$2 = styled.div(_templateObject$2);
+var Wrapper$3 = styled.div(_templateObject$3);
 
 var ProgressBarWrapper = styled.div(_templateObject2, function (props) {
   return 100 / props.stepsSize / 2;
@@ -30703,7 +30726,7 @@ var WizardNavigationComponent = function WizardNavigationComponent(_ref) {
       children = _ref.children,
       onGoToStep = _ref.onGoToStep;
   return typeof children !== 'function' ? react.createElement(
-    Wrapper$2,
+    Wrapper$3,
     null,
     react.createElement(
       ProgressBarWrapper,
@@ -30763,11 +30786,11 @@ var WizardNavigation = connect(function (state) {
   };
 })(WizardNavigationComponent);
 
-var _templateObject$3 = taggedTemplateLiteral(['\n  width: 100%;\n  height: 100%;\n'], ['\n  width: 100%;\n  height: 100%;\n']);
+var _templateObject$4 = taggedTemplateLiteral(['\n  width: 100%;\n  height: 100%;\n'], ['\n  width: 100%;\n  height: 100%;\n']);
 var _templateObject2$1 = taggedTemplateLiteral(['\n  width: 50%;\n  margin: auto;\n'], ['\n  width: 50%;\n  margin: auto;\n']);
-var _templateObject3$1 = taggedTemplateLiteral(['\n  border: none;\n  display: flex;\n'], ['\n  border: none;\n  display: flex;\n']);
+var _templateObject3$1 = taggedTemplateLiteral(['\n  border: none;\n  display: flex;\n  height: 400px;\n'], ['\n  border: none;\n  display: flex;\n  height: 400px;\n']);
 
-var PageWrapper = styled.div(_templateObject$3);
+var PageWrapper = styled.div(_templateObject$4);
 
 var WizardFormWrapper = styled.div(_templateObject2$1);
 
@@ -30788,12 +30811,21 @@ var FormStep1 = function FormStep1() {
   );
 };
 
-var FormStep2 = function FormStep2() {
+var FormStep2 = function FormStep2(_ref) {
+  var valid = _ref.valid;
   return react_4(
     FieldsetWrapper,
     null,
     react_4(Field, { name: 'phone', component: 'input', type: 'tel', placeholder: 'Phone' }),
-    react_4(Field, { name: 'age', component: 'input', type: 'number', placeholder: 'Age' }),
+    react_4(Field, {
+      name: 'age',
+      component: 'input',
+      type: 'number',
+      placeholder: 'Age',
+      validate: function validate(value) {
+        return value && value > 0 ? undefined : 'Invalid age';
+      }
+    }),
     react_4(
       Field,
       { name: 'gender', component: 'select' },
@@ -30811,8 +30843,8 @@ var FormStep2 = function FormStep2() {
     ),
     react_4(
       'button',
-      { type: 'submit' },
-      ' Next Step '
+      { type: 'submit', disabled: !valid },
+      'Next Step'
     )
   );
 };

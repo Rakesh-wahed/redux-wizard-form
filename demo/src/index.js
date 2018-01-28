@@ -10,6 +10,7 @@ const reducers = {
   form: formReducer,
   wizard: wizardReducer
 };
+
 const reducer = combineReducers(reducers);
 const store = createStore(
   reducer,

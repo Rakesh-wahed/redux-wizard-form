@@ -21,7 +21,11 @@ export class WizardStepComponent extends Component {
     const { WizardStepForm } = this;
     const { currentStep, step } = this.props;
 
-    return WizardStepForm && currentStep === step && <WizardStepForm />;
+    if (currentStep >= step) {
+      return  <WizardStepForm />;
+    }
+
+    return null;
   }
 }
 
