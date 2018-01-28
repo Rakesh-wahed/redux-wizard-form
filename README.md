@@ -21,19 +21,33 @@ yarn add redux-wizard-form
 
 ### `<WizardForm reduxFormOptions onWizardComplete> {children} </WizardForm>`
 
-This component is a wrapper that allow you to configure your wizard form passing form options. When wizard is complete (all the steps are succeed), onWizardComplete callback is called.
+This component is a wrapper that allow you to configure your wizard form passing form options. When wizard is complete (all the steps are succeed), onWizardComplete callback is called. Like a children, you can use any component that you want.
 
 #### Props
-* `reduxFormOptions: Object` Accept any [redux-form](https://redux-form.com/7.2.1/docs/api/reduxform.md/) configuration property.
-* `onWizardComplete: Function => data`Callback called when all steps are completed
+* `reduxFormOptions: Object` Accept any [redux-form configuration property](https://redux-form.com/7.2.1/docs/api/reduxform.md/).
+* `onWizardComplete: Function => data: Object`Callback called when all steps are completed
 * `children: Array<React.Node> | React.Node => data`It can be component or an  
 
 ### `<WizardNavigation> {children} </WizardNavigation>`  
 
 #### Props
-* `children?: Function(currentStep: number, stepSize: number, arrayNames: Array<string>) `Optional parameter if you want to add a custom wizard navigation component.
+* `children?: Function(currentStep: number, stepSize: number, arrayNames: Array<string>) `Optional property, you have to use this property only if you want to add a custom wizard navigation component.  
 
-## Example
+### `<WizardSteps> {children} </WizardSteps>`
+
+Wrapper of Steps.  
+
+#### Props
+* `children: Array<WizardStep>`Array of WizardStep component.  
+
+### `<WizardStep component>`
+
+Step with a form step content. Inside it, you can add any component, includes redux form [Field](https://redux-form.com/7.2.1/docs/api/field.md/), [Fields](https://redux-form.com/7.2.1/docs/api/fields.md/) and  [FieldArray](https://redux-form.com/7.2.1/docs/api/fields.md/).  
+
+#### Props
+* `component: React.Node`Array of WizardStep component.  
+
+## Complete example
 ```js
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -41,7 +55,7 @@ import { createStore, combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { Provider } from 'react-redux';
 import { WizardForm, WizardStep, WizardSteps, WizardNavigation, wizardReducer } from 'redux-wizard-form ';
-import { FormStep1, FormStep2, FormStep3 } from './steps';
+import { FormStep1, FormStep2, FormStep3 }   from './steps';
 
 const reducer = combineReducers({
 	form: formReducer,
