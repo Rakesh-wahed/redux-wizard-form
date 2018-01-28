@@ -17,7 +17,7 @@ With yarn:
 yarn add redux-wizard-form
 ```
 
-## Components
+## API Components
 
 ### `<WizardForm reduxFormOptions onWizardComplete> {children} </WizardForm>`
 
@@ -26,7 +26,7 @@ This component is a wrapper that allow you to configure your wizard form passing
 #### Props
 * `reduxFormOptions: Object` Accept any [redux-form configuration property](https://redux-form.com/7.2.1/docs/api/reduxform.md/).
 * `onWizardComplete: Function => data: Object`Callback called when all steps are completed
-* `children: Array<React.Node> | React.Node => data`It can be component or an  
+* `children: Array<React.Node> | React.Node`It can be component or an  
 
 ### `<WizardNavigation> {children} </WizardNavigation>`  
 
@@ -47,7 +47,7 @@ Step with a form step content. Inside it, you can add any component, includes re
 #### Props
 * `component: React.Node`Array of WizardStep component.  
 
-## Complete example
+## Usage
 ```js
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
