@@ -17,7 +17,7 @@ With yarn:
 yarn add redux-wizard-form
 ```
 
-##API
+## API
 
 ### `<WizardForm reduxFormOptions onWizardComplete>`
 
@@ -25,7 +25,7 @@ This component is only a wrapper that allow you to configure your wizard form pa
 
 #### Props
 * `reduxFormOptions: Object` Accept any [redux-form](https://redux-form.com/7.2.1/docs/api/reduxform.md/) configuration property.
-* `onWizardComplete: Function => data`Callback called when all steps are completed.
+* `onWizardComplete: Function => data`Callback called when all steps are completed
 
 #### Example
 ```js
@@ -33,12 +33,11 @@ const wizardFormConfiguration = {
 	form: 'mywizard',
 	updateUnregisteredFields: false
 }
-<WizardForm
-reduxFormOptions={{ 
-	form: 'wizard',
-	onChange((values) => console.log(values)), updateUnregisteredFields: false 
-	}}
-onWizardComplete={handleWizardComplete}>
+const handleWizardComplete = (formData) => {
+	console.log(`Wizard is complete!! data is ${formData}`)
+}
+
+<WizardForm reduxFormOptions={wizardFormConfiguration} onWizardComplete={handleWizardComplete}>
  {steps}
 </WizardForm>
 ```
