@@ -8,7 +8,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('WizardSteps component', () => {
   test('snapshot', () => {
-    const props = { setWizardStepsSize: () => {} };
+    const props = { currentStep: 2, setWizardStepsSize: () => {} };
     const Component = shallow(
       <WizardStepsComponent {...props}>
         <p>Test</p>
