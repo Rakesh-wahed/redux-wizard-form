@@ -1,6 +1,6 @@
 {
   "name": "redux-form-wizard",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Wizard form components using redux-form",
   "main": "dist/index.js",
   "author": "Frank Parejo",
