@@ -1,7 +1,7 @@
 {
   "name": "redux-form-wizard",
   "version": "0.1.0",
-  "description": "Wizard form wrapper using redux-form",
+  "description": "Wizard form components using redux-form",
   "main": "dist/index.js",
   "author": "Frank Parejo",
   "license": "MIT",
