@@ -16,6 +16,15 @@
     "test:report:coverage": "cat ./coverage/lcov.info | codecov",
     "validate": "npm-run-all --parallel lint test"
   },
+  "keywords": [
+    "react",
+    "redux",
+    "redux-form",
+    "wizard-form",
+    "wizard",
+    "form",
+    "redux-wizard-form"
+  ],
   "jest": {
     "globals": {
       "ts-jest": {
