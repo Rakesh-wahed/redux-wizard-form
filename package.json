@@ -1,5 +1,5 @@
 {
-  "name": "redux-form-wizard",
+  "name": "redux-wizard-form",
   "version": "0.0.0-development",
   "description": "Wizard form components using redux-form",
   "main": "dist/index.js",
@@ -18,6 +18,9 @@
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "react",
     "redux",

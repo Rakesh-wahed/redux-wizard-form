@@ -4,7 +4,7 @@ Redux Wizard Form
 [![Build Status](https://img.shields.io/travis/frankPairs/redux-wizard-form.svg)](https://travis-ci.org/frankPairs/redux-wizard-form)
 [![codecov.io](https://codecov.io/gh/frankPairs/redux-wizard-form/branch/master/graph/badge.svg)](https://codecov.io/gh/frankPairs/redux-wizard-form)
 
-Components library to work with wizards forms easily using  [Redux Form](https://github.com/erikras/redux-form). A wizard 
+Components library to work with wizards forms easily using  [Redux Form](https://github.com/erikras/redux-form).
 
 ## Installation
 
@@ -12,7 +12,7 @@ With npm:
 ```
 npm install --save redux-wizard-form
 ```
-With yarn: 
+With yarn:
 ```
 yarn add redux-wizard-form
 ```
@@ -26,26 +26,26 @@ This component is a wrapper that allow you to configure your wizard form passing
 #### Props
 * `reduxFormOptions: Object` Accept any [redux-form configuration property](https://redux-form.com/7.2.1/docs/api/reduxform.md/).
 * `onWizardComplete: Function => data: Object`Callback called when all steps are completed
-* `children: Array<React.Node> | React.Node`It can be component or an  
+* `children: Array<React.Node> | React.Node`It can be component or an
 
-### `<WizardNavigation> {children} </WizardNavigation>`  
+### `<WizardNavigation> {children} </WizardNavigation>`
 
 #### Props
-* `children?: Function(currentStep: number, stepSize: number, arrayNames: Array<string>) `Optional property, you have to use this property only if you want to add a custom wizard navigation component.  
+* `children?: Function(currentStep: number, stepSize: number, arrayNames: Array<string>) `Optional property, you have to use this property only if you want to add a custom wizard navigation component.
 
 ### `<WizardSteps> {children} </WizardSteps>`
 
-Wrapper of Steps.  
+Wrapper of Steps.
 
 #### Props
-* `children: Array<WizardStep>`Array of WizardStep component.  
+* `children: Array<WizardStep>`Array of WizardStep component.
 
 ### `<WizardStep component>`
 
-Step with a form step content. Inside it, you can add any component, includes redux form [Field](https://redux-form.com/7.2.1/docs/api/field.md/), [Fields](https://redux-form.com/7.2.1/docs/api/fields.md/) and  [FieldArray](https://redux-form.com/7.2.1/docs/api/fields.md/).  
+Step with a form step content. Inside it, you can add any component, includes redux form [Field](https://redux-form.com/7.2.1/docs/api/field.md/), [Fields](https://redux-form.com/7.2.1/docs/api/fields.md/) and  [FieldArray](https://redux-form.com/7.2.1/docs/api/fields.md/).
 
 #### Props
-* `component: React.Node`Array of WizardStep component.  
+* `component: React.Node`Array of WizardStep component.
 
 ## Usage
 ```js
