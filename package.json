@@ -6,7 +6,7 @@
   "author": "Frank Parejo",
   "license": "MIT",
   "scripts": {
-    "prebuild": "npm run validate && rimraf dist",
+    "prebuild": "rimraf dist",
     "build": "rollup -c rollup.config.prod.js",
     "dev": "rollup -c rollup.config.dev.js -w",
     "test": "jest && jest --coverage",
@@ -14,9 +14,9 @@
     "test:watch": "jest --watch",
     "test:update": "jest -u",
     "test:report:coverage": "cat ./coverage/lcov.info | codecov",
-    "validate": "npm-run-all --parallel lint test",
+    "validate": "npm-run-all --parallel lint test build",
     "travis-deploy-once": "travis-deploy-once",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
