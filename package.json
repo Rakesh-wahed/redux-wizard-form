@@ -1,6 +1,6 @@
 {
   "name": "redux-form-wizard",
-  "version": "0.2.1",
+  "version": "0.0.0-development",
   "description": "Wizard form components using redux-form",
   "main": "dist/index.js",
   "author": "Frank Parejo",
@@ -14,7 +14,9 @@
     "test:watch": "jest --watch",
     "test:update": "jest -u",
     "test:report:coverage": "cat ./coverage/lcov.info | codecov",
-    "validate": "npm-run-all --parallel lint test"
+    "validate": "npm-run-all --parallel lint test",
+    "travis-deploy-once": "travis-deploy-once",
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "react",
@@ -78,6 +80,12 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-serve": "^0.4.2",
-    "rollup-plugin-uglify": "^3.0.0"
+    "rollup-plugin-uglify": "^3.0.0",
+    "semantic-release": "^12.4.1",
+    "travis-deploy-once": "^4.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frankPairs/redux-wizard-form.git"
   }
 }

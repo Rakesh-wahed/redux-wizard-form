@@ -1,16 +1,17 @@
-language:
-  node_js
-node_js:
-  "8"
-install:
-  yarn
-script:
-  yarn validate
-branches:
-  only:
-    master
+language: node_js
 cache:
   directories:
-    "node_modules"
+    - ~/.npm
+install:
+  yarn
+notifications:
+  email: false
+node_js:
+  - '9'
+  - '8'
+  - '6'
 after_success:
-  yarn test:report:coverage
+  - npm run travis-deploy-once "npm run semantic-release"
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/

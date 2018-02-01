@@ -10,7 +10,7 @@ export const FormStep2 = ({ valid }) => (
       component="input"
       type="number"
       placeholder="Age"
-      validate={value => value && value > 0 ? undefined : 'Invalid age'}
+      validate={value => (value && value > 0 ? undefined : 'Invalid age')}
     />
     <Field name="gender" component="select">
       <option />
