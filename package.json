@@ -15,7 +15,6 @@
     "test:update": "jest -u",
     "test:report:coverage": "cat ./coverage/lcov.info | codecov",
     "validate": "npm-run-all --parallel lint test build",
-    "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
