@@ -1,7 +1,7 @@
 {
-  "name": "redux-form-wizard",
-  "version": "0.2.1",
-  "description": "Wizard form components using redux-form",
+  "name": "redux-wizard-form",
+  "version": "0.1.0",
+  "description": "Wizard form components using redux-form.",
   "main": "dist/index.js",
   "author": "Frank Parejo",
   "license": "MIT",
@@ -16,6 +16,9 @@
     "test:report:coverage": "cat ./coverage/lcov.info | codecov",
     "validate": "npm-run-all --parallel lint test"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "react",
     "redux",
