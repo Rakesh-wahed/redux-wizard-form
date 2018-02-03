@@ -15,5 +15,5 @@ after_success:
   - yarn test:report:coverage
   - yarn travis-deploy-once "yarn semantic-release"
 branches:
-  except:
-    - /^v\d+\.\d+\.\d+$/
+  only:
+    - master
