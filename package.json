@@ -12,7 +12,7 @@
     "test": "jest && jest --coverage",
     "lint": "eslint --ext .jsx --ext .js src/**",
     "flow": "flow",
-    "flow:typed": "flow-typed --install",
+    "flow:typed": "flow-typed",
     "test:watch": "jest --watch",
     "test:update": "jest -u",
     "test:report:coverage": "cat ./coverage/lcov.info | codecov",

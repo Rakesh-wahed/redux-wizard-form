@@ -4,7 +4,7 @@ cache:
     - ~/.npm
 install:
   - yarn
-  - yarn flow:typed
+  - yarn flow:typed -- install 
 notifications:
   email: false
 script:
