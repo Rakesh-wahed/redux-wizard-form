@@ -1,52 +1,65 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// @flow
+import * as React from 'react';
 import { reduxForm } from 'redux-form';
 import { Wrapper } from './styles';
+import type { ReduxFormProps } from '../../typed';
 
-export class WizardStepComponent extends Component {
-  constructor(props) {
+type Props = {
+  name?: string,
+  currentStep: number,
+  step: number,
+  stepsSize: number,
+  formOptions: ReduxFormProps,
+  component: React.ComponentType<*>,
+  onSubmit: Function,
+  onWizardComplete: Function,
+  addStepName: Function
+};
+
+export class WizardStepComponent extends React.Component<Props> {
+  static defaultProps = {
+    name: 'Step'
+  };
+
+  constructor(props: Props) {
     super(props);
-    const { formOptions, component, onSubmit, name, addStepName, onWizardComplete, stepsSize, step } = props;
+
+    const {
+      formOptions,
+      component,
+      onSubmit,
+      name,
+      addStepName,
+      onWizardComplete,
+      stepsSize,
+      step
+    } = props;
+
     const InnerComponent = component;
 
     this.WizardStepForm = reduxForm(formOptions)(formProps => (
-      <Wrapper onSubmit={formProps.handleSubmit(step === stepsSize - 1 ? onWizardComplete : onSubmit)}>
+      <Wrapper
+        onSubmit={formProps.handleSubmit(
+          step === stepsSize - 1 ? onWizardComplete : onSubmit
+        )}
+      >
         <InnerComponent {...formProps} />
       </Wrapper>
     ));
 
     addStepName(name);
   }
+
+  WizardStepForm: React.ComponentType<*>;
+
   render() {
     const { WizardStepForm } = this;
     const { currentStep, step } = this.props;
 
     if (currentStep >= step) {
-      return  <WizardStepForm />;
+      return <WizardStepForm />;
     }
 
     return null;
   }
 }
-
-WizardStepComponent.propTypes = {
-  name: PropTypes.string,
-  currentStep: PropTypes.number.isRequired,
-  step: PropTypes.number.isRequired,
-  stepsSize: PropTypes.number.isRequired,
-  formOptions: PropTypes.shape({
-    form: PropTypes.string.isRequired,
-    onChange: PropTypes.func,
-    onSubmit: PropTypes.func,
-    onSubmitFail: PropTypes.func,
-    onSubmitSuccess: PropTypes.func
-  }).isRequired,
-  component: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  onWizardComplete: PropTypes.func.isRequired,
-  addStepName: PropTypes.func.isRequired
-};
-
-WizardStepComponent.defaultProps = {
-  name: 'Step'
-};

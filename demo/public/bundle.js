@@ -1704,6 +1704,7 @@ var react_1 = react.Children;
 var react_2 = react.Component;
 var react_3 = react.PropTypes;
 var react_4 = react.createElement;
+var react_5 = react.cloneElement;
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -27180,17 +27181,26 @@ var wizardReducer = function wizardReducer() {
 
   switch (action.type) {
     case types.WIZARD_FORM_OPTIONS_SET:
-      return _extends$19({}, state, { formOptions: _extends$19({}, state.formOptions, action.payload), isLoaded: true });
+      return _extends$19({}, state, {
+        formOptions: _extends$19({}, state.formOptions, action.payload),
+        isLoaded: true
+      });
     case types.WIZARD_STEPS_SIZE_SET:
       return _extends$19({}, state, { stepsSize: action.payload });
     case types.WIZARD_STEP_NAME_ADD:
       return _extends$19({}, state, { stepsNames: [].concat(toConsumableArray(state.stepsNames), [action.payload]) });
     case types.WIZARD_NEXT_STEP:
-      return _extends$19({}, state, { currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize) });
+      return _extends$19({}, state, {
+        currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize)
+      });
     case types.WIZARD_PREVIOUS_STEP:
-      return _extends$19({}, state, { currentStep: getValidStep(state.currentStep, state.currentStep - 1, state.stepsSize) });
+      return _extends$19({}, state, {
+        currentStep: getValidStep(state.currentStep, state.currentStep - 1, state.stepsSize)
+      });
     case types.WIZARD_GO_TO_STEP:
-      return _extends$19({}, state, { currentStep: getValidStep(state.currentStep, action.payload, state.stepsSize) });
+      return _extends$19({}, state, {
+        currentStep: getValidStep(state.currentStep, action.payload, state.stepsSize)
+      });
     case types.WIZARD_COMPLETE:
       return _extends$19({}, state, { isWizardComplete: true, data: action.payload });
     case types.WIZARD_RESET:
@@ -30387,8 +30397,8 @@ var _templateObject = taggedTemplateLiteral(['\n  overflow: hidden;\n  white-spa
 
 var Wrapper = styled.div(_templateObject);
 
-var WizardFormComponent = function (_Component) {
-  inherits(WizardFormComponent, _Component);
+var WizardFormComponent = function (_React$Component) {
+  inherits(WizardFormComponent, _React$Component);
 
   function WizardFormComponent() {
     classCallCheck(this, WizardFormComponent);
@@ -30431,7 +30441,7 @@ var WizardFormComponent = function (_Component) {
         return null;
       }
 
-      return react.createElement(
+      return react_4(
         Wrapper,
         null,
         children
@@ -30440,26 +30450,8 @@ var WizardFormComponent = function (_Component) {
   }]);
   return WizardFormComponent;
 }(react_2);
-
-WizardFormComponent.propTypes = {
-  reduxFormOptions: propTypes.shape({
-    form: propTypes.string.isRequired,
-    onChange: propTypes.func,
-    onSubmit: propTypes.func,
-    onSubmitFail: propTypes.func,
-    onSubmitSuccess: propTypes.func
-  }).isRequired,
-  children: propTypes.oneOfType([propTypes.arrayOf(propTypes.node), propTypes.node]).isRequired,
-  data: propTypes.shape({}),
-  isWizardComplete: propTypes.bool.isRequired,
-  isLoaded: propTypes.bool.isRequired,
-  wizardReset: propTypes.func.isRequired,
-  onWizardOptionsLoad: propTypes.func.isRequired,
-  onWizardComplete: propTypes.func.isRequired
-};
-
 WizardFormComponent.defaultProps = {
-  data: {}
+  data: null
 };
 
 var wizardStepsSizeSet = function wizardStepsSizeSet(stepsSize) {
@@ -30532,8 +30524,8 @@ var _templateObject$1 = taggedTemplateLiteral(['\n  display: flex;\n  justify-co
 
 var Wrapper$1 = styled.form(_templateObject$1);
 
-var WizardStepComponent = function (_Component) {
-  inherits(WizardStepComponent, _Component);
+var WizardStepComponent = function (_React$Component) {
+  inherits(WizardStepComponent, _React$Component);
 
   function WizardStepComponent(props) {
     classCallCheck(this, WizardStepComponent);
@@ -30549,13 +30541,16 @@ var WizardStepComponent = function (_Component) {
         stepsSize = props.stepsSize,
         step = props.step;
 
+
     var InnerComponent = component;
 
     _this.WizardStepForm = reduxForm(formOptions)(function (formProps) {
-      return react.createElement(
+      return react_4(
         Wrapper$1,
-        { onSubmit: formProps.handleSubmit(step === stepsSize - 1 ? onWizardComplete : onSubmit) },
-        react.createElement(InnerComponent, formProps)
+        {
+          onSubmit: formProps.handleSubmit(step === stepsSize - 1 ? onWizardComplete : onSubmit)
+        },
+        react_4(InnerComponent, formProps)
       );
     });
 
@@ -30573,7 +30568,7 @@ var WizardStepComponent = function (_Component) {
 
 
       if (currentStep >= step) {
-        return react.createElement(WizardStepForm, null);
+        return react_4(WizardStepForm, null);
       }
 
       return null;
@@ -30581,25 +30576,6 @@ var WizardStepComponent = function (_Component) {
   }]);
   return WizardStepComponent;
 }(react_2);
-
-WizardStepComponent.propTypes = {
-  name: propTypes.string,
-  currentStep: propTypes.number.isRequired,
-  step: propTypes.number.isRequired,
-  stepsSize: propTypes.number.isRequired,
-  formOptions: propTypes.shape({
-    form: propTypes.string.isRequired,
-    onChange: propTypes.func,
-    onSubmit: propTypes.func,
-    onSubmitFail: propTypes.func,
-    onSubmitSuccess: propTypes.func
-  }).isRequired,
-  component: propTypes.func.isRequired,
-  onSubmit: propTypes.func.isRequired,
-  onWizardComplete: propTypes.func.isRequired,
-  addStepName: propTypes.func.isRequired
-};
-
 WizardStepComponent.defaultProps = {
   name: 'Step'
 };
@@ -30632,8 +30608,8 @@ var Wrapper$2 = styled.div(_templateObject$2, function (props) {
   return props.currentStep * -100;
 });
 
-var WizardStepsComponent = function (_Component) {
-  inherits(WizardStepsComponent, _Component);
+var WizardStepsComponent = function (_React$Component) {
+  inherits(WizardStepsComponent, _React$Component);
 
   function WizardStepsComponent() {
     classCallCheck(this, WizardStepsComponent);
@@ -30661,10 +30637,14 @@ var WizardStepsComponent = function (_Component) {
 
       if (Array.isArray(children)) {
         return children.map(function (child, i) {
-          return react.createElement(
+          return react_4(
             Wrapper$2,
-            { key: i, currentStep: currentStep, isCurrentStep: currentStep === i },
-            react.cloneElement(child, { step: i, key: i })
+            {
+              key: i,
+              currentStep: currentStep,
+              isCurrentStep: currentStep === i
+            },
+            react_5(child, { step: i, key: i })
           );
         });
       }
@@ -30674,12 +30654,6 @@ var WizardStepsComponent = function (_Component) {
   }]);
   return WizardStepsComponent;
 }(react_2);
-
-WizardStepsComponent.propTypes = {
-  currentStep: propTypes.number.isRequired,
-  children: propTypes.oneOfType([propTypes.arrayOf(propTypes.node), propTypes.node]).isRequired,
-  setWizardStepsSize: propTypes.func.isRequired
-};
 
 var WizardSteps = connect(function (state) {
   return {
@@ -30725,30 +30699,30 @@ var WizardNavigationComponent = function WizardNavigationComponent(_ref) {
       stepsNames = _ref.stepsNames,
       children = _ref.children,
       onGoToStep = _ref.onGoToStep;
-  return typeof children !== 'function' ? react.createElement(
+  return typeof children !== 'function' ? react_4(
     Wrapper$3,
     null,
-    react.createElement(
+    react_4(
       ProgressBarWrapper,
       { stepsSize: stepsSize },
-      react.createElement(ProgressBar, { currentStep: currentStep, stepsSize: stepsSize })
+      react_4(ProgressBar, { currentStep: currentStep, stepsSize: stepsSize })
     ),
     stepsNames.map(function (stepName, i) {
-      return react.createElement(
+      return react_4(
         Block,
         { key: i, onClick: function onClick() {
             return onGoToStep(currentStep, i);
           } },
-        react.createElement(
+        react_4(
           NumberStep,
           { isActive: currentStep >= i },
-          react.createElement(
+          react_4(
             'span',
             null,
             i + 1
           )
         ),
-        react.createElement(
+        react_4(
           'span',
           { className: 'step-name' },
           stepName
@@ -30756,14 +30730,6 @@ var WizardNavigationComponent = function WizardNavigationComponent(_ref) {
       );
     })
   ) : children(currentStep, stepsSize, stepsNames);
-};
-
-WizardNavigationComponent.propTypes = {
-  children: propTypes.func,
-  currentStep: propTypes.number.isRequired,
-  stepsSize: propTypes.number.isRequired,
-  stepsNames: propTypes.arrayOf(propTypes.string).isRequired,
-  onGoToStep: propTypes.func.isRequired
 };
 
 WizardNavigationComponent.defaultProps = {
@@ -30785,6 +30751,8 @@ var WizardNavigation = connect(function (state) {
     }
   };
 })(WizardNavigationComponent);
+
+// COMPONENTS
 
 var _templateObject$4 = taggedTemplateLiteral(['\n  width: 100%;\n  height: 100%;\n'], ['\n  width: 100%;\n  height: 100%;\n']);
 var _templateObject2$1 = taggedTemplateLiteral(['\n  width: 50%;\n  margin: auto;\n'], ['\n  width: 50%;\n  margin: auto;\n']);

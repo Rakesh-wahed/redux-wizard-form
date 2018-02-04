@@ -1,14 +1,30 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// @flow
+import * as React from 'react';
 import { Wrapper } from './styles';
+import type { ReduxFormProps } from '../../typed';
 
-export class WizardFormComponent extends Component {
-  componentDidMount() {
+type Props = {
+  reduxFormOptions: ReduxFormProps,
+  children: React.Node,
+  data?: Object,
+  isWizardComplete: boolean,
+  isLoaded: boolean,
+  wizardReset: Function,
+  onWizardOptionsLoad: Function,
+  onWizardComplete: Function
+};
+
+export class WizardFormComponent extends React.Component<Props> {
+  static defaultProps = {
+    data: null
+  };
+
+  componentDidMount(): void {
     const { onWizardOptionsLoad, reduxFormOptions } = this.props;
     onWizardOptionsLoad(reduxFormOptions);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props): void {
     const { onWizardComplete } = this.props;
 
     if (nextProps.isWizardComplete) {
@@ -16,11 +32,11 @@ export class WizardFormComponent extends Component {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     this.props.wizardReset();
   }
 
-  render() {
+  render(): ?React.Node {
     const { children, isLoaded } = this.props;
 
     if (!isLoaded) {
@@ -30,24 +46,3 @@ export class WizardFormComponent extends Component {
     return <Wrapper>{children}</Wrapper>;
   }
 }
-
-WizardFormComponent.propTypes = {
-  reduxFormOptions: PropTypes.shape({
-    form: PropTypes.string.isRequired,
-    onChange: PropTypes.func,
-    onSubmit: PropTypes.func,
-    onSubmitFail: PropTypes.func,
-    onSubmitSuccess: PropTypes.func
-  }).isRequired,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-  data: PropTypes.shape({}),
-  isWizardComplete: PropTypes.bool.isRequired,
-  isLoaded: PropTypes.bool.isRequired,
-  wizardReset: PropTypes.func.isRequired,
-  onWizardOptionsLoad: PropTypes.func.isRequired,
-  onWizardComplete: PropTypes.func.isRequired
-};
-
-WizardFormComponent.defaultProps = {
-  data: {}
-};

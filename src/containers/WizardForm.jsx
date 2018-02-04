@@ -1,15 +1,16 @@
+// @flow
 import { connect } from 'react-redux';
 import { isWizardComplete, isLoaded, getData } from '../reducer';
 import { WizardFormComponent } from '../components/WizardForm/WizardForm';
 import { formOptionsSet, wizardReset } from '../actions';
 
 export const WizardForm = connect(
-  state => ({
+  (state: Object): Object => ({
     isWizardComplete: isWizardComplete(state),
     isLoaded: isLoaded(state),
     data: getData(state)
   }),
-  dispatch => ({
+  (dispatch: Function): Object => ({
     wizardReset: () => dispatch(wizardReset()),
     onWizardOptionsLoad: formOptions => dispatch(formOptionsSet(formOptions))
   })

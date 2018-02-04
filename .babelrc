@@ -1,16 +1,7 @@
 {
-  "ignore": [
-    "node_modules/**"
-  ],
-  "presets": [
-    ["es2015", { "modules": false }],
-    "react",
-    "flow"
-  ],
-  "plugins": [
-    "transform-class-properties",
-    "transform-object-rest-spread"
-  ],
+  "ignore": ["node_modules/**"],
+  "presets": [["es2015", { "modules": false }], "react", "flow"],
+  "plugins": ["transform-class-properties", "transform-object-rest-spread"],
   "env": {
     "development": {
       "plugins": ["external-helpers"]

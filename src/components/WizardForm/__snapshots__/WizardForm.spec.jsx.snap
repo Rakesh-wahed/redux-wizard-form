@@ -5,7 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <WizardFormComponent
-    data={Object {}}
+    data={null}
     isLoaded={true}
     isWizardComplete={false}
     onWizardComplete={[Function]}

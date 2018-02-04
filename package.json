@@ -11,10 +11,12 @@
     "dev": "rollup -c rollup.config.dev.js -w",
     "test": "jest && jest --coverage",
     "lint": "eslint --ext .jsx --ext .js src/**",
+    "flow": "flow",
+    "flow:typed": "flow-typed",
     "test:watch": "jest --watch",
     "test:update": "jest -u",
     "test:report:coverage": "cat ./coverage/lcov.info | codecov",
-    "validate": "npm-run-all --parallel lint test build",
+    "validate": "npm-run-all --parallel lint test flow build",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release"
   },
@@ -22,9 +24,7 @@
     "type": "git",
     "url": "https://github.com/frankPairs/redux-wizard-form.git"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist", "flow-typed/redux-wizard-form"],
   "keywords": [
     "react",
     "redux",
@@ -55,6 +55,7 @@
     "babel-eslint": "^8.0.3",
     "babel-jest": "^21.2.0",
     "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-flow-react-proptypes": "^17.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -71,7 +72,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
-    "flow-bin": "^0.61.0",
+    "flow-bin": "^0.64.0",
     "flow-typed": "^2.2.3",
     "jest": "^21.2.1",
     "npm-run-all": "^4.1.2",

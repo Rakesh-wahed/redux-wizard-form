@@ -3,7 +3,8 @@ cache:
   directories:
     - ~/.npm
 install:
-  yarn
+  - yarn
+  - yarn flow:typed -- install 
 notifications:
   email: false
 script:
@@ -15,5 +16,5 @@ after_success:
   - yarn test:report:coverage
   - yarn travis-deploy-once "yarn semantic-release"
 branches:
-  except:
-    - /^v\d+\.\d+\.\d+$/
+  only:
+    - master
