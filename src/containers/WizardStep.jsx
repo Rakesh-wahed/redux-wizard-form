@@ -10,7 +10,7 @@ export const WizardStep = connect(
     currentStep: getCurrentStep(state),
     stepsSize: getStepsSize(state)
   }),
-  (dispatch: Dispatch): Object => ({
+  (dispatch: Function): Object => ({
     addStepName: (stepName: string): void =>
       dispatch(wizardStepNameAdd(stepName)),
     onSubmit: (): void => dispatch(nextStep()),

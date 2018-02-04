@@ -10,7 +10,7 @@ export const WizardNavigation = connect(
     stepsSize: getStepsSize(state),
     stepsNames: getStepsNames(state)
   }),
-  (dispatch: Dispatch): Object => ({
+  (dispatch: Function): Object => ({
     onGoToStep: (currentStep: number, step: number): void => {
       if (step < currentStep) {
         dispatch(goToStep(step));

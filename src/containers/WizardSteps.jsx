@@ -8,7 +8,7 @@ export const WizardSteps = connect(
   (state: Object): Object => ({
     currentStep: getCurrentStep(state)
   }),
-  (dispatch: Dispatch): Object => ({
+  (dispatch: Function): Object => ({
     setWizardStepsSize: (stepsSize: number): void =>
       dispatch(wizardStepsSizeSet(stepsSize))
   })

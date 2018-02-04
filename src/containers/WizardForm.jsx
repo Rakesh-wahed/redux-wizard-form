@@ -10,7 +10,7 @@ export const WizardForm = connect(
     isLoaded: isLoaded(state),
     data: getData(state)
   }),
-  (dispatch: Dispatch): Object => ({
+  (dispatch: Function): Object => ({
     wizardReset: () => dispatch(wizardReset()),
     onWizardOptionsLoad: formOptions => dispatch(formOptionsSet(formOptions))
   })
