@@ -27181,17 +27181,26 @@ var wizardReducer = function wizardReducer() {
 
   switch (action.type) {
     case types.WIZARD_FORM_OPTIONS_SET:
-      return _extends$19({}, state, { formOptions: _extends$19({}, state.formOptions, action.payload), isLoaded: true });
+      return _extends$19({}, state, {
+        formOptions: _extends$19({}, state.formOptions, action.payload),
+        isLoaded: true
+      });
     case types.WIZARD_STEPS_SIZE_SET:
       return _extends$19({}, state, { stepsSize: action.payload });
     case types.WIZARD_STEP_NAME_ADD:
       return _extends$19({}, state, { stepsNames: [].concat(toConsumableArray(state.stepsNames), [action.payload]) });
     case types.WIZARD_NEXT_STEP:
-      return _extends$19({}, state, { currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize) });
+      return _extends$19({}, state, {
+        currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize)
+      });
     case types.WIZARD_PREVIOUS_STEP:
-      return _extends$19({}, state, { currentStep: getValidStep(state.currentStep, state.currentStep - 1, state.stepsSize) });
+      return _extends$19({}, state, {
+        currentStep: getValidStep(state.currentStep, state.currentStep - 1, state.stepsSize)
+      });
     case types.WIZARD_GO_TO_STEP:
-      return _extends$19({}, state, { currentStep: getValidStep(state.currentStep, action.payload, state.stepsSize) });
+      return _extends$19({}, state, {
+        currentStep: getValidStep(state.currentStep, action.payload, state.stepsSize)
+      });
     case types.WIZARD_COMPLETE:
       return _extends$19({}, state, { isWizardComplete: true, data: action.payload });
     case types.WIZARD_RESET:
