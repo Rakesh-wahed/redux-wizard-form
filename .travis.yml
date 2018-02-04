@@ -3,7 +3,8 @@ cache:
   directories:
     - ~/.npm
 install:
-  yarn
+  - yarn
+  - yarn flow:typed
 notifications:
   email: false
 script:

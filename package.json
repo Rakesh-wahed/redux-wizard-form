@@ -12,6 +12,7 @@
     "test": "jest && jest --coverage",
     "lint": "eslint --ext .jsx --ext .js src/**",
     "flow": "flow",
+    "flow:typed": "flow-typed --install",
     "test:watch": "jest --watch",
     "test:update": "jest -u",
     "test:report:coverage": "cat ./coverage/lcov.info | codecov",
@@ -23,9 +24,7 @@
     "type": "git",
     "url": "https://github.com/frankPairs/redux-wizard-form.git"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist", "flow-typed/redux-wizard-form"],
   "keywords": [
     "react",
     "redux",
