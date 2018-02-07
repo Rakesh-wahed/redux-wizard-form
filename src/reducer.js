@@ -84,16 +84,3 @@ export const wizardReducer = (
       return state;
   }
 };
-
-// SELECTORS
-export const getFormOptions = (state: Object): Object =>
-  state.wizard.formOptions;
-export const getData = (state: Object): Object => state.wizard.data;
-export const getCurrentStep = (state: Object): number =>
-  state.wizard.currentStep;
-export const getStepsSize = (state: Object): number => state.wizard.stepsSize;
-export const getStepsNames = (state: Object): Array<string> =>
-  state.wizard.stepsNames;
-export const isLoaded = (state: Object): boolean => state.wizard.isLoaded;
-export const isWizardComplete = (state: Object): boolean =>
-  state.wizard.isWizardComplete;

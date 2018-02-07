@@ -27030,208 +27030,34 @@ var createValues$1 = function createValues(_ref) {
 
 createValues$1(structure);
 
-var types = {
-  WIZARD_STEP_NAME_ADD: 'WIZARD_STEP_NAME_ADD',
-  WIZARD_NEXT_STEP: 'WIZARD_NEXT_STEP',
-  WIZARD_PREVIOUS_STEP: 'WIZARD_PREVIOUS_STEP',
-  WIZARD_GO_TO_STEP: 'WIZARD_GO_TO_STEP',
-  WIZARD_FORM_SUBMIT: 'WIZARD_FORM_SUBMIT',
-  WIZARD_STEPS_SIZE_SET: 'WIZARD_STEPS_SIZE_SET',
-  WIZARD_FORM_OPTIONS_SET: 'WIZARD_FORM_OPTIONS_SET',
-  WIZARD_COMPLETE: 'WIZARD_COMPLETE',
-  WIZARD_RESET: 'WIZARD_RESET'
-};
-
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-
-
-
-
-
-
-var _extends$19 = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-
-
-var inherits = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-};
-
-
-
-
-
-
-
-
-
-
-
-var possibleConstructorReturn = function (self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-};
-
-
-
-
-
-
-
-
-
-var taggedTemplateLiteral = function (strings, raw) {
-  return Object.freeze(Object.defineProperties(strings, {
-    raw: {
-      value: Object.freeze(raw)
-    }
-  }));
-};
-
-
-
-
-
-
-
-
-
-var toConsumableArray = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  } else {
-    return Array.from(arr);
-  }
-};
-
-var initialState = {
-  stepsSize: 0,
-  stepsNames: [],
-  formOptions: {
-    destroyOnUnmount: false,
-    forceUnregisterOnUnmount: true
-  },
-  currentStep: 0,
-  data: null,
-  isLoaded: false,
-  isWizardComplete: false
-};
-
-// UTILS
-function getValidStep(prevStep, nextStep, stepSize) {
-  return nextStep >= 0 && nextStep <= stepSize - 1 ? nextStep : prevStep;
+// SELECTORS
+function getFormOptions(state) {
+  return state.wizard.formOptions;
 }
 
-// REDUCER
-var wizardReducer = function wizardReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case types.WIZARD_FORM_OPTIONS_SET:
-      return _extends$19({}, state, {
-        formOptions: _extends$19({}, state.formOptions, action.payload),
-        isLoaded: true
-      });
-    case types.WIZARD_STEPS_SIZE_SET:
-      return _extends$19({}, state, { stepsSize: action.payload });
-    case types.WIZARD_STEP_NAME_ADD:
-      return _extends$19({}, state, { stepsNames: [].concat(toConsumableArray(state.stepsNames), [action.payload]) });
-    case types.WIZARD_NEXT_STEP:
-      return _extends$19({}, state, {
-        currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize)
-      });
-    case types.WIZARD_PREVIOUS_STEP:
-      return _extends$19({}, state, {
-        currentStep: getValidStep(state.currentStep, state.currentStep - 1, state.stepsSize)
-      });
-    case types.WIZARD_GO_TO_STEP:
-      return _extends$19({}, state, {
-        currentStep: getValidStep(state.currentStep, action.payload, state.stepsSize)
-      });
-    case types.WIZARD_COMPLETE:
-      return _extends$19({}, state, { isWizardComplete: true, data: action.payload });
-    case types.WIZARD_RESET:
-      return initialState;
-    default:
-      return state;
-  }
-};
-
-// SELECTORS
-var getFormOptions = function getFormOptions(state) {
-  return state.wizard.formOptions;
-};
-var getData = function getData(state) {
+function getData(state) {
   return state.wizard.data;
-};
-var getCurrentStep = function getCurrentStep(state) {
+}
+
+function getCurrentStep(state) {
   return state.wizard.currentStep;
-};
-var getStepsSize = function getStepsSize(state) {
+}
+
+function getStepsSize(state) {
   return state.wizard.stepsSize;
-};
-var getStepsNames = function getStepsNames(state) {
+}
+
+function getStepsNames(state) {
   return state.wizard.stepsNames;
-};
-var isLoaded = function isLoaded(state) {
+}
+
+function isLoaded(state) {
   return state.wizard.isLoaded;
-};
-var isWizardComplete = function isWizardComplete(state) {
+}
+
+function isWizardComplete(state) {
   return state.wizard.isWizardComplete;
-};
+}
 
 /*!
  * isobject <https://github.com/jonschlinkert/isobject>
@@ -28999,13 +28825,13 @@ var getNonce = (function () {
                                      return typeof __webpack_nonce__ !== 'undefined' ? __webpack_nonce__ : null;
 });
 
-var classCallCheck$1 = function (instance, Constructor) {
+var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 };
 
-var createClass$1 = function () {
+var createClass = function () {
   function defineProperties(target, props) {
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
@@ -29029,7 +28855,7 @@ var createClass$1 = function () {
 
 
 
-var _extends$20 = Object.assign || function (target) {
+var _extends$19 = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
 
@@ -29045,7 +28871,7 @@ var _extends$20 = Object.assign || function (target) {
 
 
 
-var inherits$1 = function (subClass, superClass) {
+var inherits = function (subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
   }
@@ -29069,7 +28895,7 @@ var inherits$1 = function (subClass, superClass) {
 
 
 
-var objectWithoutProperties$1 = function (obj, keys) {
+var objectWithoutProperties = function (obj, keys) {
   var target = {};
 
   for (var i in obj) {
@@ -29081,7 +28907,7 @@ var objectWithoutProperties$1 = function (obj, keys) {
   return target;
 };
 
-var possibleConstructorReturn$1 = function (self, call) {
+var possibleConstructorReturn = function (self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
@@ -29112,7 +28938,7 @@ var COMPONENTS_PER_TAG = 40;
 var BrowserTag = function () {
   function BrowserTag(el, isLocal) {
     var existingSource = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-    classCallCheck$1(this, BrowserTag);
+    classCallCheck(this, BrowserTag);
 
     this.el = el;
     this.isLocal = isLocal;
@@ -29272,7 +29098,7 @@ var StyleSheet = function () {
   function StyleSheet(tagConstructor) {
     var tags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
     var names = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    classCallCheck$1(this, StyleSheet);
+    classCallCheck(this, StyleSheet);
     this.hashes = {};
     this.deferredInjections = {};
     this.stylesCacheable = typeof document !== 'undefined';
@@ -29410,16 +29236,16 @@ var StyleSheet = function () {
   StyleSheet.clone = function clone(oldSheet) {
     var newSheet = new StyleSheet(oldSheet.tagConstructor, oldSheet.tags.map(function (tag) {
       return tag.clone();
-    }), _extends$20({}, oldSheet.names));
+    }), _extends$19({}, oldSheet.names));
 
-    newSheet.hashes = _extends$20({}, oldSheet.hashes);
-    newSheet.deferredInjections = _extends$20({}, oldSheet.deferredInjections);
+    newSheet.hashes = _extends$19({}, oldSheet.hashes);
+    newSheet.deferredInjections = _extends$19({}, oldSheet.deferredInjections);
     clones.push(newSheet);
 
     return newSheet;
   };
 
-  createClass$1(StyleSheet, null, [{
+  createClass(StyleSheet, null, [{
     key: 'instance',
     get: function get$$1() {
       return instance || (instance = StyleSheet.create());
@@ -29432,11 +29258,11 @@ var _StyleSheetManager$ch;
 
 //      
 var StyleSheetManager = function (_Component) {
-  inherits$1(StyleSheetManager, _Component);
+  inherits(StyleSheetManager, _Component);
 
   function StyleSheetManager() {
-    classCallCheck$1(this, StyleSheetManager);
-    return possibleConstructorReturn$1(this, _Component.apply(this, arguments));
+    classCallCheck(this, StyleSheetManager);
+    return possibleConstructorReturn(this, _Component.apply(this, arguments));
   }
 
   StyleSheetManager.prototype.getChildContext = function getChildContext() {
@@ -29466,7 +29292,7 @@ StyleSheetManager.propTypes = {
 /* eslint-disable no-underscore-dangle */
 var ServerTag = function () {
   function ServerTag(isLocal) {
-    classCallCheck$1(this, ServerTag);
+    classCallCheck(this, ServerTag);
 
     this.isLocal = isLocal;
     this.components = {};
@@ -29530,7 +29356,7 @@ var ServerTag = function () {
       attrs.nonce = nonce;
     }
 
-    return react.createElement('style', _extends$20({
+    return react.createElement('style', _extends$19({
       key: key,
       type: 'text/css'
     }, attrs, {
@@ -29545,7 +29371,7 @@ var ServerTag = function () {
     copy.names = [].concat(this.names);
     copy.size = this.size;
     copy.components = Object.keys(this.components).reduce(function (acc, key) {
-      acc[key] = _extends$20({}, _this2.components[key]); // eslint-disable-line no-param-reassign
+      acc[key] = _extends$19({}, _this2.components[key]); // eslint-disable-line no-param-reassign
       return acc;
     }, {});
 
@@ -29557,7 +29383,7 @@ var ServerTag = function () {
 
 var ServerStyleSheet = function () {
   function ServerStyleSheet() {
-    classCallCheck$1(this, ServerStyleSheet);
+    classCallCheck(this, ServerStyleSheet);
 
     this.instance = StyleSheet.clone(StyleSheet.instance);
   }
@@ -29792,12 +29618,12 @@ var isFunction$3 = function isFunction(test) {
  */
 
 var ThemeProvider = function (_Component) {
-  inherits$1(ThemeProvider, _Component);
+  inherits(ThemeProvider, _Component);
 
   function ThemeProvider() {
-    classCallCheck$1(this, ThemeProvider);
+    classCallCheck(this, ThemeProvider);
 
-    var _this = possibleConstructorReturn$1(this, _Component.call(this));
+    var _this = possibleConstructorReturn(this, _Component.call(this));
 
     _this.unsubscribeToOuterId = -1;
 
@@ -29823,7 +29649,7 @@ var ThemeProvider = function (_Component) {
     var _this3 = this,
         _babelHelpers$extends;
 
-    return _extends$20({}, this.context, (_babelHelpers$extends = {}, _babelHelpers$extends[CHANNEL_NEXT] = {
+    return _extends$19({}, this.context, (_babelHelpers$extends = {}, _babelHelpers$extends[CHANNEL_NEXT] = {
       getTheme: this.getTheme,
       subscribe: this.broadcast.subscribe,
       unsubscribe: this.broadcast.unsubscribe
@@ -29867,7 +29693,7 @@ var ThemeProvider = function (_Component) {
     if (!isPlainObject$2(theme)) {
       throw new Error('[ThemeProvider] Please make your theme prop a plain object');
     }
-    return _extends$20({}, this.outerTheme, theme);
+    return _extends$19({}, this.outerTheme, theme);
   };
 
   ThemeProvider.prototype.render = function render() {
@@ -29915,21 +29741,21 @@ var _StyledComponent = (function (ComponentStyle, constructWithOptions) {
   };
 
   var BaseStyledComponent = function (_Component) {
-    inherits$1(BaseStyledComponent, _Component);
+    inherits(BaseStyledComponent, _Component);
 
     function BaseStyledComponent() {
       var _temp, _this, _ret;
 
-      classCallCheck$1(this, BaseStyledComponent);
+      classCallCheck(this, BaseStyledComponent);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = possibleConstructorReturn$1(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.attrs = {}, _this.state = {
+      return _ret = (_temp = (_this = possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.attrs = {}, _this.state = {
         theme: null,
         generatedClassName: ''
-      }, _this.unsubscribeId = -1, _temp), possibleConstructorReturn$1(_this, _ret);
+      }, _this.unsubscribeId = -1, _temp), possibleConstructorReturn(_this, _ret);
     }
 
     BaseStyledComponent.prototype.unsubscribeFromContext = function unsubscribeFromContext() {
@@ -29941,7 +29767,7 @@ var _StyledComponent = (function (ComponentStyle, constructWithOptions) {
     BaseStyledComponent.prototype.buildExecutionContext = function buildExecutionContext(theme, props) {
       var attrs = this.constructor.attrs;
 
-      var context = _extends$20({}, props, { theme: theme });
+      var context = _extends$19({}, props, { theme: theme });
       if (attrs === undefined) {
         return context;
       }
@@ -29953,7 +29779,7 @@ var _StyledComponent = (function (ComponentStyle, constructWithOptions) {
         return acc;
       }, {});
 
-      return _extends$20({}, context, this.attrs);
+      return _extends$19({}, context, this.attrs);
     };
 
     BaseStyledComponent.prototype.generateAndInjectStyles = function generateAndInjectStyles(theme, props) {
@@ -30053,7 +29879,7 @@ var _StyledComponent = (function (ComponentStyle, constructWithOptions) {
       // eslint-disable-next-line react/prop-types
       this.props.className, styledComponentId, this.attrs.className, generatedClassName].filter(Boolean).join(' ');
 
-      var baseProps = _extends$20({}, this.attrs, {
+      var baseProps = _extends$19({}, this.attrs, {
         className: className
       });
 
@@ -30098,21 +29924,21 @@ var _StyledComponent = (function (ComponentStyle, constructWithOptions) {
     var componentStyle = new ComponentStyle(extendingRules === undefined ? rules : extendingRules.concat(rules), attrs, styledComponentId);
 
     var StyledComponent = function (_ParentComponent) {
-      inherits$1(StyledComponent, _ParentComponent);
+      inherits(StyledComponent, _ParentComponent);
 
       function StyledComponent() {
-        classCallCheck$1(this, StyledComponent);
-        return possibleConstructorReturn$1(this, _ParentComponent.apply(this, arguments));
+        classCallCheck(this, StyledComponent);
+        return possibleConstructorReturn(this, _ParentComponent.apply(this, arguments));
       }
 
       StyledComponent.withComponent = function withComponent(tag) {
         var previousComponentId = options.componentId,
-            optionsToCopy = objectWithoutProperties$1(options, ['componentId']);
+            optionsToCopy = objectWithoutProperties(options, ['componentId']);
 
 
         var newComponentId = previousComponentId && previousComponentId + '-' + (isTag(tag) ? tag : escape$1(getComponentName(tag)));
 
-        var newOptions = _extends$20({}, optionsToCopy, {
+        var newOptions = _extends$19({}, optionsToCopy, {
           componentId: newComponentId,
           ParentComponent: StyledComponent
         });
@@ -30120,17 +29946,17 @@ var _StyledComponent = (function (ComponentStyle, constructWithOptions) {
         return createStyledComponent(tag, newOptions, rules);
       };
 
-      createClass$1(StyledComponent, null, [{
+      createClass(StyledComponent, null, [{
         key: 'extend',
         get: function get$$1() {
           var rulesFromOptions = options.rules,
               parentComponentId = options.componentId,
-              optionsToCopy = objectWithoutProperties$1(options, ['rules', 'componentId']);
+              optionsToCopy = objectWithoutProperties(options, ['rules', 'componentId']);
 
 
           var newRules = rulesFromOptions === undefined ? rules : rulesFromOptions.concat(rules);
 
-          var newOptions = _extends$20({}, optionsToCopy, {
+          var newOptions = _extends$19({}, optionsToCopy, {
             rules: newRules,
             parentComponentId: parentComponentId,
             ParentComponent: StyledComponent
@@ -30262,7 +30088,7 @@ var isHRMEnabled = typeof module !== 'undefined' && module.hot && "development" 
 var _ComponentStyle = (function (nameGenerator, flatten, stringifyRules) {
   var ComponentStyle = function () {
     function ComponentStyle(rules, attrs, componentId) {
-      classCallCheck$1(this, ComponentStyle);
+      classCallCheck(this, ComponentStyle);
 
       this.rules = rules;
       this.isStatic = !isHRMEnabled && isStaticRules(rules, attrs);
@@ -30369,11 +30195,11 @@ var _constructWithOptions = (function (css) {
 
     /* If config methods are called, wrap up a new template function and merge options */
     templateFunction.withConfig = function (config$$1) {
-      return constructWithOptions(componentConstructor, tag, _extends$20({}, options, config$$1));
+      return constructWithOptions(componentConstructor, tag, _extends$19({}, options, config$$1));
     };
     templateFunction.attrs = function (attrs) {
-      return constructWithOptions(componentConstructor, tag, _extends$20({}, options, {
-        attrs: _extends$20({}, options.attrs || {}, attrs)
+      return constructWithOptions(componentConstructor, tag, _extends$19({}, options, {
+        attrs: _extends$19({}, options.attrs || {}, attrs)
       }));
     };
 
@@ -30393,19 +30219,133 @@ var StyledComponent = _StyledComponent(ComponentStyle, constructWithOptions);
 /* Instantiate exported singletons */
 var styled = _styled(StyledComponent, constructWithOptions);
 
+var classCallCheck$1 = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass$1 = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+
+
+
+
+
+
+var _extends$20 = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+
+
+var inherits$1 = function (subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+};
+
+
+
+
+
+
+
+
+
+
+
+var possibleConstructorReturn$1 = function (self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
+
+
+
+
+
+
+
+
+
+var taggedTemplateLiteral = function (strings, raw) {
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+};
+
+
+
+
+
+
+
+
+
+var toConsumableArray = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  } else {
+    return Array.from(arr);
+  }
+};
+
 var _templateObject = taggedTemplateLiteral(['\n  overflow: hidden;\n  white-space: nowrap;\n  width: 100%;\n'], ['\n  overflow: hidden;\n  white-space: nowrap;\n  width: 100%;\n']);
 
 var Wrapper = styled.div(_templateObject);
 
 var WizardFormComponent = function (_React$Component) {
-  inherits(WizardFormComponent, _React$Component);
+  inherits$1(WizardFormComponent, _React$Component);
 
   function WizardFormComponent() {
-    classCallCheck(this, WizardFormComponent);
-    return possibleConstructorReturn(this, (WizardFormComponent.__proto__ || Object.getPrototypeOf(WizardFormComponent)).apply(this, arguments));
+    classCallCheck$1(this, WizardFormComponent);
+    return possibleConstructorReturn$1(this, (WizardFormComponent.__proto__ || Object.getPrototypeOf(WizardFormComponent)).apply(this, arguments));
   }
 
-  createClass(WizardFormComponent, [{
+  createClass$1(WizardFormComponent, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _props = this.props,
@@ -30452,6 +30392,18 @@ var WizardFormComponent = function (_React$Component) {
 }(react_2);
 WizardFormComponent.defaultProps = {
   data: null
+};
+
+var types = {
+  WIZARD_STEP_NAME_ADD: 'WIZARD_STEP_NAME_ADD',
+  WIZARD_NEXT_STEP: 'WIZARD_NEXT_STEP',
+  WIZARD_PREVIOUS_STEP: 'WIZARD_PREVIOUS_STEP',
+  WIZARD_GO_TO_STEP: 'WIZARD_GO_TO_STEP',
+  WIZARD_FORM_SUBMIT: 'WIZARD_FORM_SUBMIT',
+  WIZARD_STEPS_SIZE_SET: 'WIZARD_STEPS_SIZE_SET',
+  WIZARD_FORM_OPTIONS_SET: 'WIZARD_FORM_OPTIONS_SET',
+  WIZARD_COMPLETE: 'WIZARD_COMPLETE',
+  WIZARD_RESET: 'WIZARD_RESET'
 };
 
 var wizardStepsSizeSet = function wizardStepsSizeSet(stepsSize) {
@@ -30525,12 +30477,12 @@ var _templateObject$1 = taggedTemplateLiteral(['\n  display: flex;\n  justify-co
 var Wrapper$1 = styled.form(_templateObject$1);
 
 var WizardStepComponent = function (_React$Component) {
-  inherits(WizardStepComponent, _React$Component);
+  inherits$1(WizardStepComponent, _React$Component);
 
   function WizardStepComponent(props) {
-    classCallCheck(this, WizardStepComponent);
+    classCallCheck$1(this, WizardStepComponent);
 
-    var _this = possibleConstructorReturn(this, (WizardStepComponent.__proto__ || Object.getPrototypeOf(WizardStepComponent)).call(this, props));
+    var _this = possibleConstructorReturn$1(this, (WizardStepComponent.__proto__ || Object.getPrototypeOf(WizardStepComponent)).call(this, props));
 
     var formOptions = props.formOptions,
         component = props.component,
@@ -30558,7 +30510,7 @@ var WizardStepComponent = function (_React$Component) {
     return _this;
   }
 
-  createClass(WizardStepComponent, [{
+  createClass$1(WizardStepComponent, [{
     key: 'render',
     value: function render() {
       var WizardStepForm = this.WizardStepForm;
@@ -30609,14 +30561,14 @@ var Wrapper$2 = styled.div(_templateObject$2, function (props) {
 });
 
 var WizardStepsComponent = function (_React$Component) {
-  inherits(WizardStepsComponent, _React$Component);
+  inherits$1(WizardStepsComponent, _React$Component);
 
   function WizardStepsComponent() {
-    classCallCheck(this, WizardStepsComponent);
-    return possibleConstructorReturn(this, (WizardStepsComponent.__proto__ || Object.getPrototypeOf(WizardStepsComponent)).apply(this, arguments));
+    classCallCheck$1(this, WizardStepsComponent);
+    return possibleConstructorReturn$1(this, (WizardStepsComponent.__proto__ || Object.getPrototypeOf(WizardStepsComponent)).apply(this, arguments));
   }
 
-  createClass(WizardStepsComponent, [{
+  createClass$1(WizardStepsComponent, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
       var _props = this.props,
@@ -30751,6 +30703,60 @@ var WizardNavigation = connect(function (state) {
     }
   };
 })(WizardNavigationComponent);
+
+var initialState = {
+  stepsSize: 0,
+  stepsNames: [],
+  formOptions: {
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true
+  },
+  currentStep: 0,
+  data: null,
+  isLoaded: false,
+  isWizardComplete: false
+};
+
+// UTILS
+function getValidStep(prevStep, nextStep, stepSize) {
+  return nextStep >= 0 && nextStep <= stepSize - 1 ? nextStep : prevStep;
+}
+
+// REDUCER
+var wizardReducer = function wizardReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case types.WIZARD_FORM_OPTIONS_SET:
+      return _extends$20({}, state, {
+        formOptions: _extends$20({}, state.formOptions, action.payload),
+        isLoaded: true
+      });
+    case types.WIZARD_STEPS_SIZE_SET:
+      return _extends$20({}, state, { stepsSize: action.payload });
+    case types.WIZARD_STEP_NAME_ADD:
+      return _extends$20({}, state, { stepsNames: [].concat(toConsumableArray(state.stepsNames), [action.payload]) });
+    case types.WIZARD_NEXT_STEP:
+      return _extends$20({}, state, {
+        currentStep: getValidStep(state.currentStep, state.currentStep + 1, state.stepsSize)
+      });
+    case types.WIZARD_PREVIOUS_STEP:
+      return _extends$20({}, state, {
+        currentStep: getValidStep(state.currentStep, state.currentStep - 1, state.stepsSize)
+      });
+    case types.WIZARD_GO_TO_STEP:
+      return _extends$20({}, state, {
+        currentStep: getValidStep(state.currentStep, action.payload, state.stepsSize)
+      });
+    case types.WIZARD_COMPLETE:
+      return _extends$20({}, state, { isWizardComplete: true, data: action.payload });
+    case types.WIZARD_RESET:
+      return initialState;
+    default:
+      return state;
+  }
+};
 
 // COMPONENTS
 

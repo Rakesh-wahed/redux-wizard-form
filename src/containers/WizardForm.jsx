@@ -1,6 +1,6 @@
 // @flow
 import { connect } from 'react-redux';
-import { isWizardComplete, isLoaded, getData } from '../reducer';
+import { isWizardComplete, isLoaded, getData } from '../selectors';
 import { WizardFormComponent } from '../components/WizardForm/WizardForm';
 import { formOptionsSet, wizardReset } from '../actions';
 
