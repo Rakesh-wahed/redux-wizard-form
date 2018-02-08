@@ -45,14 +45,12 @@ Component to indicate total steps that you have and which steps are completed.
 
 ```js
 <WizardNavigation>
-  {
-     (currentStep, stepSize, stepsNames) => (
-     	<div>
-    		<span> {currenStep} </span> /
-  		<span> {stepSize} </span>
-     	</div>
-     )
-  }
+  {(currentStep, stepSize, stepsNames) => (
+    <div>
+      <span> {currenStep} </span> /
+      <span> {stepSize} </span>
+    </div>
+  )}
 </WizardNavigation>
 ```
 
@@ -120,7 +118,7 @@ import { FormStep1, FormStep2, FormStep3 } from './steps';
 
 const reducer = combineReducers({
   form: formReducer,
-  wizard: wizardReducer
+  myWizard: wizardReducer('myWizard')
 });
 const store = createStore(reducer);
 const wizardFormConfiguration = {
