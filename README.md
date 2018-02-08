@@ -99,6 +99,35 @@ import { Field } from 'redux-form';
 }}>
 ```
 
+
+## API Reducer
+### `wizardReducer(wizardPath: string = 'wizard'): Function`
+
+You need to add wizardReducer in your app combineReducer if you want to use this library.
+
+#### Params
+* `wizardPath: string` wizard state path. default value is **wizard**
+
+#### Example 1
+
+```js
+const reducers = combineReducers({
+  form: formReducer,
+  wizard: wizardReducer() // property must call wizard
+});
+const store = createStore(reducers);
+```
+
+#### Example 2
+
+```js
+const reducers = combineReducers({
+  form: formReducer,
+  myWizard: wizardReducer('myWizard') // property must call myWizard
+});
+const store = createStore(reducers);
+```
+
 ## Usage
 
 ```js
