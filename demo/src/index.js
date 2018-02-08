@@ -3,12 +3,18 @@ import * as ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { Provider } from 'react-redux';
-import { WizardForm, WizardStep, WizardSteps, WizardNavigation, wizardReducer } from '../../src';
+import {
+  WizardForm,
+  WizardStep,
+  WizardSteps,
+  WizardNavigation,
+  wizardReducer
+} from '../../src';
 import { FormStep1, FormStep2, FormStep3 } from './steps';
 
 const reducers = {
   form: formReducer,
-  wizard: wizardReducer
+  myWizard: wizardReducer('myWizard')
 };
 
 const reducer = combineReducers(reducers);
@@ -27,7 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
       <div>
         <h1> Redux Form Wizard</h1>
 
-        <WizardForm reduxFormOptions={{ form: 'wizard' }} onWizardComplete={handleWizardComplete}>
+        <WizardForm
+          reduxFormOptions={{ form: 'wizard' }}
+          onWizardComplete={handleWizardComplete}
+        >
           <WizardNavigation />
           <WizardSteps>
             <WizardStep component={FormStep1} />

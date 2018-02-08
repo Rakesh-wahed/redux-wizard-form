@@ -24,7 +24,10 @@
     "type": "git",
     "url": "https://github.com/frankPairs/redux-wizard-form.git"
   },
-  "files": ["dist", "flow-typed/redux-wizard-form"],
+  "files": [
+    "dist",
+    "flow-typed/redux-wizard-form"
+  ],
   "keywords": [
     "react",
     "redux",
@@ -44,6 +47,7 @@
   "dependencies": {
     "flow": "^0.2.3",
     "prop-types": "^15.6.0",
+    "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",

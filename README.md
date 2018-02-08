@@ -45,14 +45,12 @@ Component to indicate total steps that you have and which steps are completed.
 
 ```js
 <WizardNavigation>
-  {
-     (currentStep, stepSize, stepsNames) => (
-     	<div>
-    		<span> {currenStep} </span> /
-  		<span> {stepSize} </span>
-     	</div>
-     )
-  }
+  {(currentStep, stepSize, stepsNames) => (
+    <div>
+      <span> {currenStep} </span> /
+      <span> {stepSize} </span>
+    </div>
+  )}
 </WizardNavigation>
 ```
 
@@ -101,6 +99,35 @@ import { Field } from 'redux-form';
 }}>
 ```
 
+
+## API Reducer
+### `wizardReducer(wizardPath: string = 'wizard'): Function`
+
+You need to add wizardReducer in your app combineReducer if you want to use this library.
+
+#### Params
+* `wizardPath: string` wizard state path. default value is **wizard**
+
+#### Example 1
+
+```js
+const reducers = combineReducers({
+  form: formReducer,
+  wizard: wizardReducer() // property must call wizard
+});
+const store = createStore(reducers);
+```
+
+#### Example 2
+
+```js
+const reducers = combineReducers({
+  form: formReducer,
+  myWizard: wizardReducer('myWizard') // property must call myWizard
+});
+const store = createStore(reducers);
+```
+
 ## Usage
 
 ```js
@@ -120,7 +147,7 @@ import { FormStep1, FormStep2, FormStep3 } from './steps';
 
 const reducer = combineReducers({
   form: formReducer,
-  wizard: wizardReducer
+  myWizard: wizardReducer('myWizard')
 });
 const store = createStore(reducer);
 const wizardFormConfiguration = {

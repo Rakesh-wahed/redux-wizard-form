@@ -1,6 +1,6 @@
 // @flow
 import { connect } from 'react-redux';
-import { getCurrentStep, getStepsSize, getStepsNames } from '../reducer';
+import { getCurrentStep, getStepsSize, getStepsNames } from '../selectors';
 import { WizardNavigationComponent } from '../components/WizardNavigation/WizardNavigation';
 import { goToStep } from '../actions';
 
