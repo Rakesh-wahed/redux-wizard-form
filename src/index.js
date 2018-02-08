@@ -8,7 +8,7 @@ export { WizardNavigation } from './containers/WizardNavigation';
 export * from './actions';
 
 // REDUCER
-export * from './reducer';
+export { wizardReducer } from './reducer';
 
 // SELECTORS
 export * from './selectors';

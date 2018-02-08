@@ -1,5 +1,6 @@
 // @flow
 import types from './types';
+import { setGlobalPath } from './selectors';
 
 type State = {
   stepsSize: number,
@@ -34,10 +35,7 @@ function getValidStep(
 }
 
 // REDUCER
-export const wizardReducer = (
-  state: State = initialState,
-  action: Object
-): Object => {
+function reducer(state: State = initialState, action: Object): Object {
   switch (action.type) {
     case types.WIZARD_FORM_OPTIONS_SET:
       return {
@@ -83,4 +81,9 @@ export const wizardReducer = (
     default:
       return state;
   }
-};
+}
+
+export function wizardReducer(globalPath: string) {
+  setGlobalPath(globalPath);
+  return reducer;
+}
