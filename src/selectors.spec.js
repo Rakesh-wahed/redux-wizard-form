@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from 'redux';
-import { initialState, wizardReducer } from './reducer';
+import { wizardReducer } from './reducer';
 import * as selectors from './selectors';
 
 describe('SELECTORS', () => {
