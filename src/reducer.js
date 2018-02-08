@@ -26,7 +26,7 @@ export const initialState = {
 };
 
 // UTILS
-function getValidStep(
+export function getValidStep(
   prevStep: number,
   nextStep: number,
   stepSize: number

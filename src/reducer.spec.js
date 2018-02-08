@@ -1,5 +1,5 @@
 import types from './types';
-import { initialState, wizardReducer } from './reducer';
+import { initialState, wizardReducer, getValidStep } from './reducer';
 
 describe('REDUCER', () => {
   test(`${types.WIZARD_NEXT_STEP}`, () => {
@@ -77,5 +77,15 @@ describe('REDUCER', () => {
       type: types.WIZARD_RESET
     });
     expect(state).toEqual(initialState);
+  });
+
+  test('getValidStep', () => {
+    const result1 = getValidStep(1, 2, 4);
+    const result2 = getValidStep(4, 5, 4);
+    const result3 = getValidStep(0, -1, 4);
+
+    expect(result1).toBe(2);
+    expect(result2).toBe(4);
+    expect(result3).toBe(0);
   });
 });
