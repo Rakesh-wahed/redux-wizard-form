@@ -6,7 +6,7 @@ import type { ReduxFormProps } from '../../typed';
 type Props = {
   reduxFormOptions: ReduxFormProps,
   children: React.Node,
-  data?: Object,
+  data?: ?Object,
   isWizardComplete: boolean,
   isLoaded: boolean,
   wizardReset: Function,

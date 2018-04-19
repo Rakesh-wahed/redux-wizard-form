@@ -12,7 +12,7 @@ type Props = {
   currentStep: number,
   stepsSize: number,
   stepsNames: Array<string>,
-  children?: Function,
+  children?: ?Function,
   onGoToStep: Function
 };
 
