@@ -9,7 +9,8 @@ export default {
   input: './demo/src/index.js',
   output: {
     file: './demo/public/bundle.js',
-    format: 'iife'
+    format: 'iife',
+    name: 'ReduxForm'
   },
   exports: 'named',
   plugins: [
@@ -26,9 +27,10 @@ export default {
           'Component',
           'PropTypes',
           'createElement',
-          'cloneElement'
+          'cloneElement',
         ],
-        'node_modules/react-dom/index.js': ['render']
+        'node_modules/react-dom/index.js': ['render'],
+        'node_modules/react-is/index.js': ['isValidElementType']
       }
     }),
     globals(),
