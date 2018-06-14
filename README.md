@@ -99,13 +99,14 @@ import { Field } from 'redux-form';
 }}>
 ```
 
-
 ## API Reducer
+
 ### `wizardReducer(wizardPath: string = 'wizard'): Function`
 
 You need to add wizardReducer in your app combineReducer if you want to use this library.
 
 #### Params
+
 * `wizardPath: string` wizard state path. default value is **wizard**
 
 #### Example 1
@@ -175,3 +176,25 @@ ReactDOM.render(
   document.getElementsByClassName('app')[0]
 );
 ```
+
+## Contribute
+
+Contributions to the package are always welcome!
+
+* Report any bugs or issues you find on the [issue tracker](https://github.com/frankPairs/redux-wizard-form/issues/new).
+* You can grab the source code at the package's [Git repository](https://github.com/frankPairs/redux-wizard-form.git).
+
+## Support
+
+Get in touch with me using one of the following means:
+
+* Emailing us at <mailto:francisco.parejo.lopez@gmail.com>
+
+## Authors
+
+* [Frank Parejo](https://github.com/frankPairs)
+* [The Community Contributors](https://github.com/frankPairs/redux-wizard-form/graphs/contributors)
+
+## License
+
+The code base is licensed under the [MIT license](LICENSE).
